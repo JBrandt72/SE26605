@@ -4,9 +4,9 @@ $table = "<table>\n"; // Empty table var
 for($rows = 1; $rows <= 5; $rows++) {
     $table .= "\t<tr>";
 
-    for($cols = 1; $cols <= 5; $cols++){
+    for($cols = 1; $cols <= 5; $cols++):
         $table .= "<td>" . $rows * $cols . "</td>";
-    }
+    endfor; //questionable alt syntax
 
     $table .= "</tr>\n";
 }
