@@ -8,6 +8,6 @@
  */
 $first = "Jon";
 $last = "Brandt";
-echo "$first $last"; //inline string interpolation
-
+echo "$first $last<br />"; //inline string interpolation
+echo $first . " " . $last; // string concatenation uses DOT OPERATOR
 
