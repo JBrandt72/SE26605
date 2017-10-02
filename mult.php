@@ -1,3 +1,17 @@
+<?php
+
+$table = "<table>\n"; // Empty table var
+for($rows = 0; $rows < 5; $rows++) {
+    $table .= "\t<tr>";
+
+    $table .= "</tr>\n";
+}
+$table .= "</table>\n";
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +19,6 @@
     <title>Title</title>
 </head>
 <body>
-
+ <?php echo $table ?>
 </body>
 </html>
