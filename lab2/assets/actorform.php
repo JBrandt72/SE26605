@@ -8,11 +8,11 @@
 ?>
 
 <form method="post" action="#">
-    First Name: <input type="text" name="fname" value="" /><br />
-    Last Name: <input type="text" name="lname" value="" /><br />
+    First Name: <input type="text" name="firstname" value="" /><br />
+    Last Name: <input type="text" name="lastname" value="" /><br />
     DOB: <input type="text" name="dob" value="" /><br />
     Height: <input type="text" name="height" value="" /><br />
 
 
-    <input type="submit" id="foo" name="action" value="">
+    <input type="submit" id="foo" name="action" value="Add">
 </form>

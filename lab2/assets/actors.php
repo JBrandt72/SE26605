@@ -15,7 +15,7 @@ function getActorsAsTable($db){
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL;
             foreach ($actors as $actor) {
-                $table .= "<tr><td>" . $actor['fname'] . "</td><td>" . $actor['lname'] . "</td><td>" . $actor['dob'] . "</td><td>" . $actor['height'] . "</td>";
+                $table .= "<tr><td>" . $actor['firstname'] . "</td><td>" . $actor['lastname'] . "</td><td>" . $actor['dob'] . "</td><td>" . $actor['height'] . "</td>";
                 $table .= "</tr>";
             }
             $table .= "</table>" . PHP_EOL;
