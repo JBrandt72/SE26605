@@ -14,7 +14,7 @@ function getCorpsName($db){
         $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //gets all data from the table and saves it to actors at an associative array
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL; //
-            $table .= "<tr><td><a href='#'>Add a new record</a></td></tr>" . PHP_EOL;
+            $table .= "<tr><td><a href='assets/addform.php'>Add a new record</a></td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
                 $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Read' /></form></td>";
@@ -56,7 +56,20 @@ function getCorpsAsTable($db){     //function to get actors from database and di
 
 }
 
-function addCorp($db, $corpname, $date, $email, $zip, $owner, $phone){       //function to add a new actor to the database
+function getCorp($db, $id){
+    $sql = $db->prepare("SELECT * FROM corps WHERE id = :id");
+    $sql->bindParam(':id', $id, PDO::PARAM_INT);
+    $sql->execute();
+    $corp = $sql->fetch(PDO::FETCH_ASSOC);
+    $table = "<table>" . PHP_EOL;
+    $table .= "<tr><th>Coporation</th><th>Date</th><th>Email</th><th>Zipcode</th><th>Owner</th><th>Phone</th></tr>";
+    $table .= "<tr><td>" . $corp['corp'] . "</td><td>" . $corp['incorp_dt'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
+    $table .= "</tr>";
+    return $table;
+
+}
+
+function addRecord($db, $corpname, $date, $email, $zip, $owner, $phone){       //function to add a new actor to the database
     try{
         $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, :incorp_dt, :email, :zipcode, :owner, :phone)"); //sql statement to add placeholders to database
         $sql->bindParam(':corp', $corpname);
@@ -72,17 +85,29 @@ function addCorp($db, $corpname, $date, $email, $zip, $owner, $phone){       //f
     }
 }
 
-function getCorp($db, $id){
-    $sql = $db->prepare("SELECT * FROM corps WHERE id = :id");
-    $sql->bindParam(':id', $id, PDO::PARAM_INT);
-    $sql->execute();
-    $corp = $sql->fetch(PDO::FETCH_ASSOC);
+function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){
+    try {
+        $sql = $db->prepare("UPDATE corps SET VALUES (:corp, :email, :zipcode, :owner, :phone) WHERE id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->bindParam(':corp', $corpname);
+        $sql->bindParam(':email', $email);
+        $sql->bindParam(':zipcode', $zip);
+        $sql->bindParam(':owner', $owner);
+        $sql->bindParam(':phone', $phone);
+        $sql->execute();
+    } catch (PDOException $e){
+        die("There was a problem deleting the corporation."); //error message if it fails to add new data to the db
+    }
 
-    $table = "<table>" . PHP_EOL;
-    $table .= "<tr><td>" . $corp['corp'] . "</td><td>" . $corp['incorp_dt'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
-    $table .= "</tr>";
+}
 
-
-    return $table;
+function deleteRecord($db, $id){
+    try {
+        $sql = $db->prepare("DELETE * FROM corps WHERE id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+    } catch (PDOException $e){
+        die("There was a deleting adding the corporation."); //error message if it fails to add new data to the db
+    }
 
 }

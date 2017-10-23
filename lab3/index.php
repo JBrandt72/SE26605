@@ -26,13 +26,18 @@
             break;
         case "Update":
             $corp = getCorp($db, $id);
+            echo $corp;
+            include_once("assets/updateform.php"); //includes the form page
+            break;
+        case "Update Record":
+            updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone);
             break;
         case "Delete":
+            $corp = getCorp($db, $id);
             break;
         case "Add":
             include_once("assets/corpsform.php"); //includes the form page
-            addCorp($db, $corpname, $date, $email, $zip, $owner, $phone);  //case compares value of action; passes the variables to the addActor function
-            $button = "Add";    //sets the value of the button to "Add"
+            addRecord($db, $corpname, $date, $email, $zip, $owner, $phone);  //case compares value of action; passes the variables to the addActor function
             break;
     }
     echo getCorpsName($db);
