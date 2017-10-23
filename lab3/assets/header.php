@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 2</title>
+    <title>Lab 3</title>
     <!-- css links go here -->
     <!-- js links go here -->
 </head>

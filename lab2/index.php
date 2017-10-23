@@ -6,7 +6,7 @@
  * Time: 10:20 AM
  */
     require_once("assets/dbconn.php");
-    require_once ("assets/actors.php"); //
+    require_once ("assets/corps.php"); //
     include_once("assets/header.php"); //includes the header page
     $db = dbConn();
     $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? ""; //saves value of the submit button named action to a variable
@@ -21,7 +21,7 @@
             break;
     }
     echo getActorsAsTable($db);
-    include_once ("assets/actorform.php"); //includes the form page
+    include_once ("assets/corpsform.php"); //includes the form page
     include_once ("assets/footer.php"); //includes the footer page
 
 
