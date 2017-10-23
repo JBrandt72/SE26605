@@ -9,7 +9,7 @@
     require_once("assets/corps.php"); //
     include_once("assets/header.php"); //includes the header page
     $db = dbConn();
-    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ??
+    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? "";
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? ""; //saves value of the submit button named action to a variable
 
     $corpname = filter_input(INPUT_POST, 'corpname', FILTER_SANITIZE_STRING) ?? ""; //saves all the text from the textboxes to corresponding variables
@@ -18,9 +18,11 @@
     $zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING) ?? "";
     $owner = filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING) ?? "";
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";
+    $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?? null;
     switch($action){
         case "Read":
-            getCorp($db, $id);
+            $corp = getCorp($db, $id);
+            echo $corp;
             break;
         case "Update":
             $corp = getCorp($db, $id);

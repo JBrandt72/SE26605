@@ -17,9 +17,9 @@ function getCorpsName($db){
             $table .= "<tr><td><a href='#'>Add a new record</a></td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
-                $table .= "<td><a href='#'>Read</a></td>";
-                $table .= "<td><a href='#'>Update</a></td>";
-                $table .= "<td><a href='#'>Delete</a></td>";
+                $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Read' /></form></td>";
+                $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Update' /></form></td>";
+                $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Delete' /></form></td>";;
                 $table .= "</tr>";
             }
             $table .= "</table>" . PHP_EOL;
@@ -76,7 +76,13 @@ function getCorp($db, $id){
     $sql = $db->prepare("SELECT * FROM corps WHERE id = :id");
     $sql->bindParam(':id', $id, PDO::PARAM_INT);
     $sql->execute();
-    $row = $sql->fetch(PDO::FETCH_ASSOC);
-    return $row;
+    $corp = $sql->fetch(PDO::FETCH_ASSOC);
+
+    $table = "<table>" . PHP_EOL;
+    $table .= "<tr><td>" . $corp['corp'] . "</td><td>" . $corp['incorp_dt'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
+    $table .= "</tr>";
+
+
+    return $table;
 
 }
