@@ -6,16 +6,20 @@
  * Time: 10:23 AM
  */
 
-function getCorpsAsTable($db){     //function to get actors from database and display the data in a table
+function getCorpsName($db){
     try {
         $sql = "SELECT * FROM corps";
         $sql = $db->prepare($sql);
         $sql->execute();
-        $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //gets all data from the table and saves it to actors at an asaociative array
+        $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //gets all data from the table and saves it to actors at an associative array
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL; //
+            $table .= "<tr><td><a href='#'>Add a new record</a></td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
-                $table .= "<tr><td>" . $corp['corpname'] . "</td><td>" . $corp['date'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zip'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
+                $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
+                $table .= "<td><a href='#'>Read</a></td>";
+                $table .= "<td><a href='#'>Update</a></td>";
+                $table .= "<td><a href='#'>Delete</a></td>";
                 $table .= "</tr>";
             }
             $table .= "</table>" . PHP_EOL;
@@ -24,7 +28,30 @@ function getCorpsAsTable($db){     //function to get actors from database and di
         }
         return $table; //returns the table variable holding a string for the entire table
     } catch (PDOException $e){
-        die("There was a problem getting the actors."); //output if it fails to access database
+        die("There was a problem getting the corps."); //output if it fails to access database
+    }
+
+}
+
+function getCorpsAsTable($db){     //function to get actors from database and display the data in a table
+    try {
+        $sql = "SELECT * FROM corps";
+        $sql = $db->prepare($sql);
+        $sql->execute();
+        $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //gets all data from the table and saves it to actors at an associative array
+        if($sql->rowCount() > 0) {
+            $table = "<table>" . PHP_EOL; //
+            foreach ($corps as $corp) {
+                $table .= "<tr><td>" . $corp['corp'] . "</td><td>" . $corp['incorp_dt'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
+                $table .= "</tr>";
+            }
+            $table .= "</table>" . PHP_EOL;
+        } else {
+            $table = "There are no corps." . PHP_EOL; //message saved to the variable if the db table is empty
+        }
+        return $table; //returns the table variable holding a string for the entire table
+    } catch (PDOException $e){
+        die("There was a problem getting the corps."); //output if it fails to access database
     }
 
 }
