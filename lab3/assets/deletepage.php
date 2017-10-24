@@ -10,16 +10,13 @@
     require_once("corps.php"); //
     include_once("header.php");
 ?>
-    <a href='../index.php'>Return to View Page</a>
+    <a href='../index.php'>Return to View Page</a><br />
 
 <?php
     $db = dbConn();
     $id = filter_input(INPUT_GET, 'id');
 
-    echo getCorp($db, $id);
+    echo deleteRecord($db, $id);
 
-?>
-    <input type="submit" id="foo" name="action" value="Add">
-<?php
-    include_once ("footer.php");
+include_once ("footer.php");
 ?>

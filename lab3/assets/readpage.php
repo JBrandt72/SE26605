@@ -11,7 +11,7 @@
     include_once("header.php");
 ?>
 
-    <a href='../index.php'>Return to View Page</a>
+    <a href='../index.php'>Return to View Page</a><br />
 
 <?php
     $db = dbConn();

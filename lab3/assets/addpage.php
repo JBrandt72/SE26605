@@ -10,7 +10,7 @@
     require_once("corps.php"); //
     include_once("header.php");
 ?>
-    <a href='../index.php'>Return to View Page</a>
+    <a href='../index.php'>Return to View Page</a><br />
 
 <?php
     $button = "Add";
@@ -26,8 +26,7 @@
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";
 
     if($action == "Add") {
-        echo addRecord($db, $id, $corpname, $email, $zip, $owner, $phone);
-        echo getCorp($db, $id);
+        echo addRecord($db, $corpname, $email, $zip, $owner, $phone);
     }
 
     include_once ("footer.php");

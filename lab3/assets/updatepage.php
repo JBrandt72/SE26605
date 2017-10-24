@@ -10,7 +10,7 @@
     require_once("corps.php"); //
     include_once("header.php");
 ?>
-    <a href='../index.php'>Return to View Page</a>
+    <a href='../index.php'>Return to View Page</a><br />
 
 <?php
     $button = "Update";
