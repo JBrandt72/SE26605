@@ -14,12 +14,12 @@ function getCorpsName($db){
         $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //gets all data from the table and saves it to actors at an associative array
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL; //
-            $table .= "<tr><td><a href='assets/addform.php'>Add a new record</a></td></tr>" . PHP_EOL;
+            $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
-                $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Read' /></form></td>";
-                $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Update' /></form></td>";
-                $table .= "<td><form method='post' action='#'><input type = 'hidden' name='id' value ='" . $corp['id'] . "' /><input type='submit' name='action' value='Delete' /></form></td>";;
+                $table .= "<td><a href='readpage.php?id=" .  $corp['id'] . "'>Read</a></td>";
+                $table .= "<td><a href='updatepage.php?id=" .  $corp['id'] . "'>Update</a></td>";
+                $table .= "<td><a href='deletepage.php?id=" .  $corp['id'] . "'>Delete</a></td>";
                 $table .= "</tr>";
             }
             $table .= "</table>" . PHP_EOL;

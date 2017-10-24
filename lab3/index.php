@@ -8,9 +8,10 @@
     require_once("assets/dbconn.php");
     require_once("assets/corps.php"); //
     include_once("assets/header.php"); //includes the header page
+
     $db = dbConn();
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? "";
-        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? ""; //saves value of the submit button named action to a variable
+    $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? ""; //saves value of the submit button named action to a variable
 
     $corpname = filter_input(INPUT_POST, 'corpname', FILTER_SANITIZE_STRING) ?? ""; //saves all the text from the textboxes to corresponding variables
     $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING) ?? "";
@@ -19,6 +20,7 @@
     $owner = filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING) ?? "";
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";
     $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?? null;
+
     switch($action){
         case "Read":
             $corp = getCorp($db, $id);
@@ -27,7 +29,7 @@
         case "Update":
             $corp = getCorp($db, $id);
             echo $corp;
-            include_once("assets/updateform.php"); //includes the form page
+            include_once("assets/updatepage.php"); //includes the form page
             break;
         case "Update Record":
             updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone);

@@ -9,7 +9,6 @@
 
 <form method="post" action="#">
     Corporation Name: <input type="text" name="corpname" value="" /><br /> <!--text boxes for user to enter data -->
-    Date: <input type="text" name="date" value="" /><br />
     Email: <input type="text" name="email" value="" /><br />
     Zip: <input type="text" name="zip" value="" /><br />
     Owner: <input type="text" name="owner" value="" /><br />

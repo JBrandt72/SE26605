@@ -9,7 +9,10 @@
 require_once("dbconn.php");
 require_once("corps.php"); //
 include_once("header.php");
+?>
+<a href='../index.php'>Return to View Page</a>
 
-include_once("corpsform.php");
+<?php
+echo getCorp($db, $id);
 include_once ("footer.php");
 ?>
