@@ -6,13 +6,13 @@
  * Time: 11:03 AM
  */
 
-require_once("dbconn.php");
-require_once("corps.php"); //
-include_once("header.php");
+    require_once("dbconn.php");
+    require_once("corps.php"); //
+    include_once("header.php");
 ?>
     <a href='../index.php'>Return to View Page</a>
 
 <?php
-include_once("corpsform.php");
-include_once ("footer.php");
+    include_once("corpsform.php");
+    include_once ("footer.php");
 ?>

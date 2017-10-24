@@ -6,13 +6,19 @@
  * Time: 11:03 AM
  */
 
-require_once("dbconn.php");
-require_once("corps.php"); //
-include_once("header.php");
+    require_once("dbconn.php");
+    require_once("corps.php"); //
+    include_once("header.php");
 ?>
-<a href='../index.php'>Return to View Page</a>
+
+    <a href='../index.php'>Return to View Page</a>
 
 <?php
-echo getCorp($db, $id);
-include_once ("footer.php");
+    $db = dbConn();
+    $id = filter_input(INPUT_GET, 'id');
+    echo getCorp($db, $id);
+?>
+
+<?php
+    include_once ("footer.php");
 ?>

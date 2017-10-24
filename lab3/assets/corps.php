@@ -17,9 +17,9 @@ function getCorpsName($db){
             $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
-                $table .= "<td><a href='readpage.php?id=" .  $corp['id'] . "'>Read</a></td>";
-                $table .= "<td><a href='updatepage.php?id=" .  $corp['id'] . "'>Update</a></td>";
-                $table .= "<td><a href='deletepage.php?id=" .  $corp['id'] . "'>Delete</a></td>";
+                $table .= "<td><a href='assets/readpage.php?id=" .  $corp['id'] . "'>Read</a></td>";
+                $table .= "<td><a href='assets/updatepage.php?id=" .  $corp['id'] . "'>Update</a></td>";
+                $table .= "<td><a href='assets/deletepage.php?id=" .  $corp['id'] . "'>Delete</a></td>";
                 $table .= "</tr>";
             }
             $table .= "</table>" . PHP_EOL;
@@ -87,7 +87,7 @@ function addRecord($db, $corpname, $date, $email, $zip, $owner, $phone){       /
 
 function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){
     try {
-        $sql = $db->prepare("UPDATE corps SET VALUES (:corp, :email, :zipcode, :owner, :phone) WHERE id = :id");
+        $sql = $db->prepare("UPDATE corps SET corp = :corp, email = :email, zipcode = :zipcode, owner = :owner, phone = :phone WHERE id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
         $sql->bindParam(':corp', $corpname);
         $sql->bindParam(':email', $email);
@@ -96,18 +96,18 @@ function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){
         $sql->bindParam(':phone', $phone);
         $sql->execute();
     } catch (PDOException $e){
-        die("There was a problem deleting the corporation."); //error message if it fails to add new data to the db
+        die("There was a problem updating the corporation."); //error message if it fails to add new data to the db
     }
 
 }
 
 function deleteRecord($db, $id){
     try {
-        $sql = $db->prepare("DELETE * FROM corps WHERE id = :id");
+        $sql = $db->prepare("DELETE FROM corps WHERE id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
         $sql->execute();
     } catch (PDOException $e){
-        die("There was a deleting adding the corporation."); //error message if it fails to add new data to the db
+        die("There was a problem deleting the corporation."); //error message if it fails to add new data to the db
     }
 
 }

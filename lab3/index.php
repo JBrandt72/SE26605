@@ -21,6 +21,7 @@
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";
     $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?? null;
 
+    /*
     switch($action){
         case "Read":
             $corp = getCorp($db, $id);
@@ -42,6 +43,8 @@
             addRecord($db, $corpname, $date, $email, $zip, $owner, $phone);  //case compares value of action; passes the variables to the addActor function
             break;
     }
+    */
+
     echo getCorpsName($db);
 
     include_once ("assets/footer.php"); //includes the footer page
