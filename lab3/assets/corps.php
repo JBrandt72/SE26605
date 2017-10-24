@@ -45,6 +45,18 @@ function getCorp($db, $id){
     return $table;
 }
 
+function getCorpStats($db, $id){
+    $sql = $db->prepare("SELECT * FROM corps WHERE id = :id");
+    $sql->bindParam(':id', $id, PDO::PARAM_INT);
+    $sql->execute();
+    $corp = $sql->fetch(PDO::FETCH_ASSOC);
+    return $corp;
+}
+
+
+
+
+
 function addRecord($db, $corpname, $email, $zip, $owner, $phone){       //function to add a new actor to the database
     try{
         $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, now(), :email, :zipcode, :owner, :phone)"); //sql statement to add placeholders to database

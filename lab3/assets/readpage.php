@@ -16,7 +16,11 @@
 <?php
     $db = dbConn();
     $id = filter_input(INPUT_GET, 'id');
+
+
     echo getCorp($db, $id);
+    echo "<a href='updatepage.php?id=" .  $id . "'>Update </a><a href='deletepage.php?id=" .  $id . "'> Delete</a>";
+
 ?>
 
 <?php
