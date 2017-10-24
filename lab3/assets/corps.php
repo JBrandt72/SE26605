@@ -11,7 +11,7 @@ function getCorpsName($db){
         $sql = "SELECT * FROM corps";
         $sql = $db->prepare($sql);
         $sql->execute();
-        $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //gets all data from the table and saves it to actors at an associative array
+        $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //Gets all data from the table and saves it to actors at an associative array
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL; //
             $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
@@ -24,14 +24,13 @@ function getCorpsName($db){
             }
             $table .= "</table>" . PHP_EOL;
         } else {
-            $table = "There are no corps." . PHP_EOL; //message saved to the variable if the db table is empty
+            $table = "There are no corps." . PHP_EOL; //Message saved to the variable if the db table is empty
         }
-        return $table; //returns the table variable holding a string for the entire table
+        return $table; //Returns the table variable holding a string for the entire table
     } catch (PDOException $e){
-        die("There was a problem getting the corps."); //output if it fails to access database
+        die("There was a problem getting the corps."); //Output if it fails to access database
     }
 }
-
 
 function getCorp($db, $id){
     $sql = $db->prepare("SELECT * FROM corps WHERE id = :id");
@@ -53,11 +52,7 @@ function getCorpStats($db, $id){
     return $corp;
 }
 
-
-
-
-
-function addRecord($db, $corpname, $email, $zip, $owner, $phone){       //function to add a new actor to the database
+function addRecord($db, $corpname, $email, $zip, $owner, $phone){  //Function to add a new actor to the database
     try{
         $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, now(), :email, :zipcode, :owner, :phone)"); //sql statement to add placeholders to database
         $sql->bindParam(':corp', $corpname);
@@ -68,11 +63,11 @@ function addRecord($db, $corpname, $email, $zip, $owner, $phone){       //functi
         $sql->execute();
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
-        die("There was a problem adding the corporation."); //error message if it fails to add new data to the db
+        die("There was a problem adding the corporation."); //Error message if it fails to add new data to the db
     }
 }
 
-function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){
+function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){   //Function to update a record in the database
     try {
         $sql = $db->prepare("UPDATE corps SET corp = :corp, email = :email, zipcode = :zipcode, owner = :owner, phone = :phone WHERE id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
@@ -84,17 +79,17 @@ function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){
         $sql->execute();
         return "Update complete.";
     } catch (PDOException $e){
-        die("There was a problem updating the corporation."); //error message if it fails to add new data to the db
+        die("There was a problem updating the corporation."); //Error message if it fails to add new data to the db
     }
 }
 
-function deleteRecord($db, $id){
+function deleteRecord($db, $id){  //Function to delete a record from the database
     try {
         $sql = $db->prepare("DELETE FROM corps WHERE id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
         $sql->execute();
         return "Record " . $id ." deleted.";
     } catch (PDOException $e){
-        die("There was a problem deleting the corporation."); //error message if it fails to add new data to the db
+        die("There was a problem deleting the corporation."); //Error message if it fails to add new data to the db
     }
 }

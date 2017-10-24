@@ -6,7 +6,7 @@
  * Time: 10:23 AM
  */
 ?>
-
+<!--Form for user data -->
 <form method="post" action="#">
     Corporation Name: <input type="text" name="corpname" value="" /><br /> <!--text boxes for user to enter data -->
     Email: <input type="text" name="email" value="" /><br />
@@ -14,6 +14,5 @@
     Owner: <input type="text" name="owner" value="" /><br />
     Phone: <input type="text" name="phone" value="" /><br />
 
-
-    <input type="submit" id="foo" name="action" value="<?php echo $button; ?>"> <!--submit button to add new record -->
+    <input type="submit" id="foo" name="action" value="<?php echo $button; ?>"> <!--submit button to add or update records -->
 </form>
