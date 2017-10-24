@@ -15,5 +15,5 @@
     Phone: <input type="text" name="phone" value="" /><br />
 
 
-    <input type="submit" id="foo" name="action" value="Add"> <!--submit button to add new record -->
+    <input type="submit" id="foo" name="action" value="<?php echo $button; ?>"> <!--submit button to add new record -->
 </form>

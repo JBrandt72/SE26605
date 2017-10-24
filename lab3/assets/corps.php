@@ -69,11 +69,10 @@ function getCorp($db, $id){
 
 }
 
-function addRecord($db, $corpname, $date, $email, $zip, $owner, $phone){       //function to add a new actor to the database
+function addRecord($db, $corpname, $email, $zip, $owner, $phone){       //function to add a new actor to the database
     try{
-        $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, :incorp_dt, :email, :zipcode, :owner, :phone)"); //sql statement to add placeholders to database
+        $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, now(), :email, :zipcode, :owner, :phone)"); //sql statement to add placeholders to database
         $sql->bindParam(':corp', $corpname);
-        $sql->bindParam(':incorp_dt', $date);
         $sql->bindParam(':email', $email);
         $sql->bindParam(':zipcode', $zip);
         $sql->bindParam(':owner', $owner);
@@ -95,6 +94,7 @@ function updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone){
         $sql->bindParam(':owner', $owner);
         $sql->bindParam(':phone', $phone);
         $sql->execute();
+        return "Update complete.";
     } catch (PDOException $e){
         die("There was a problem updating the corporation."); //error message if it fails to add new data to the db
     }

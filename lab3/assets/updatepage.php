@@ -13,21 +13,26 @@
     <a href='../index.php'>Return to View Page</a>
 
 <?php
+    $button = "Update";
     include_once ("corpsform.php");
 
     $db = dbConn();
     $id = filter_input(INPUT_GET, 'id');
-
+    $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? "";
     $corpname = filter_input(INPUT_POST, 'corpname', FILTER_SANITIZE_STRING) ?? "";
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING) ?? "";
     $zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING) ?? "";
     $owner = filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING) ?? "";
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";
 
-
     echo getCorp($db, $id);
 
-    echo updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone);
+    switch($action) {
+        case "Update":
+            echo updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone);
+            echo getCorp($db, $id);
+            break;
+    }
 
     include_once ("footer.php");
 ?>

@@ -17,5 +17,9 @@
     $id = filter_input(INPUT_GET, 'id');
 
     echo getCorp($db, $id);
+
+?>
+    <input type="submit" id="foo" name="action" value="Add">
+<?php
     include_once ("footer.php");
 ?>
