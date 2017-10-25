@@ -18,8 +18,8 @@
     $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); //Gets id from url
 
 
-    echo getCorp($db, $id);
-    echo "<a href='updatepage.php?id=" .  $id . "'>Update </a><a href='deletepage.php?id=" .  $id . "'> Delete</a>"; //Links to update/delete pages
+    echo getCorpTable($db, $id);
+
 
 ?>
 

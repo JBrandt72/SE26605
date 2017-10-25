@@ -38,7 +38,7 @@
 
     if($action == "Update") {
         echo updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone); //Switch to call function to update record
-        echo getCorp($db, $id);
+        echo getCorpTable($db, $id);
     }
 
     include_once ("footer.php");

@@ -17,9 +17,9 @@ function getCorpsName($db){
             $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
-                $table .= "<td><a href='assets/readpage.php?id=" .  $corp['id'] . "'>Read</a></td>";
-                $table .= "<td><a href='assets/updatepage.php?id=" .  $corp['id'] . "'>Update</a></td>";
-                $table .= "<td><a href='assets/deletepage.php?id=" .  $corp['id'] . "'>Delete</a></td>";
+                $table .= "<td><a class='btn btn-link' href='assets/readpage.php?id=" .  $corp['id'] . "'>Read</a></td> ";
+                $table .= "<td><a class='btn btn-link' href='assets/updatepage.php?id=" .  $corp['id'] . "'>Update</a></td> ";
+                $table .= "<td><a class='btn btn-link' href='assets/deletepage.php?id=" .  $corp['id'] . "'>Delete</a></td> ";
                 $table .= "</tr>";
             }
             $table .= "</table>" . PHP_EOL;
@@ -32,14 +32,15 @@ function getCorpsName($db){
     }
 }
 
-function getCorp($db, $id){
+function getCorpTable($db, $id){
     $sql = $db->prepare("SELECT * FROM corps WHERE id = :id");
     $sql->bindParam(':id', $id, PDO::PARAM_INT);
     $sql->execute();
     $corp = $sql->fetch(PDO::FETCH_ASSOC);
-    $table = "<table>" . PHP_EOL;
-    $table .= "<tr><th>Coporation</th><th>Date</th><th>Email</th><th>Zipcode</th><th>Owner</th><th>Phone</th></tr>";
-    $table .= "<tr><td>" . $corp['corp'] . "</td><td>" . $corp['incorp_dt'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
+    $table = "<table class='table'>" . PHP_EOL;
+    $table .= "<tr><th>Coporation</th><th>Date</th><th>Email</th><th>Zipcode</th><th>Owner</th><th>Phone</th><th>Options</th></tr>";
+    $table .= "<tr><td>" . $corp['corp'] . "</td><td>" . date("m/d/Y", strtotime($corp['incorp_dt'])) . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>" . $corp['owner'] . "</td><td>" . $corp['phone'] . "</td>"; //adds cells holding actor data to the string building the table
+    $table .= "<td><a class='btn btn-dark' href='updatepage.php?id=" .  $id . "'>Update </a> <a class='btn btn-dark' href='deletepage.php?id=" .  $id . "'> Delete</a></td>";
     $table .= "</tr></table>";
     return $table;
 }
