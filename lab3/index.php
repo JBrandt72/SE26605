@@ -14,6 +14,4 @@
     echo getCorpsName($db); //Calls function to get the Corporation name for all records
 
     include_once ("assets/footer.php");
-
-
 ?>

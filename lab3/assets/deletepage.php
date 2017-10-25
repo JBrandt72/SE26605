@@ -5,7 +5,6 @@
  * Date: 10/23/2017
  * Time: 11:03 AM
  */
-
     require_once("dbconn.php"); //Includes necessary pages
     require_once("corps.php");
     include_once("header.php");

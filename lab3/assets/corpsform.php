@@ -16,3 +16,4 @@
 
     <input type="submit" id="foo" name="action" value="<?php echo $button; ?>"> <!--submit button to add or update records -->
 </form>
+

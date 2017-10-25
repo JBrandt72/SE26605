@@ -5,6 +5,7 @@
  * Date: 10/18/2017
  * Time: 10:23 AM
  */
+
 function dbConn() //function to connect to database
 {
     $dsn = "mysql:host=localhost;dbname=phpclassfall2017"; //saves info to separate variables for security
