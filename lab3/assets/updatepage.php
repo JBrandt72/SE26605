@@ -36,11 +36,9 @@
     $owner = filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING) ?? "";
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";
 
-    switch($action) {
-        case "Update":
-            echo updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone); //Switch to call function to update record (wanted to try both methods)
-            echo getCorp($db, $id);
-            break;
+    if($action == "Update") {
+        echo updateRecord($db, $id, $corpname, $email, $zip, $owner, $phone); //Switch to call function to update record
+        echo getCorp($db, $id);
     }
 
     include_once ("footer.php");
