@@ -18,7 +18,7 @@
 </head>
 <body>
     <header>
-        <nav></nav>
+        <h2>Corporations App</h2>
     </header>
     <section>
 
