@@ -14,7 +14,7 @@
 
 <?php
     $db = dbConn();
-    $id = filter_input(INPUT_GET, 'id'); //Gets id from url
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); //Gets id from url
 
     echo deleteRecord($db, $id);
 

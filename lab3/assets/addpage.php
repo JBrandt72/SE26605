@@ -17,7 +17,7 @@
     include_once ("corpsform.php");
 
     $db = dbConn();
-    $id = filter_input(INPUT_GET, 'id'); //Gets id from url
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); //Gets id from url
     $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? "";    //Saves user input to variables
     $corpname = filter_input(INPUT_POST, 'corpname', FILTER_SANITIZE_STRING) ?? "";
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING) ?? "";
