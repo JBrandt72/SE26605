@@ -9,17 +9,17 @@
 
 <form method="get">
     Sort Column:
-    <select name ="id">
+    <select name ="colSort" value="id">
         <option value="id">ID</option>
         <option value="corp">Corp</option>
-        <option value="date">Date</option>
+        <option value="incorp_dt">Date</option>
         <option value="email">Email</option>
-        <option value="zip">Zip</option>
+        <option value="zipcode">Zip</option>
         <option value="owner">Owner</option>
         <option value="phone">Phone</option>
     </select>
-    Ascending:<input type="radio" name="sorting" value ="ascending">
-    Descending:<input type="radio" name="sorting" value ="descending">
+    Ascending:<input type="radio" name="dir" value ="ASC">
+    Descending:<input type="radio" name="dir" value ="DESC">
     <input type="submit" name="action" value="Submit">
     <input type="submit" name="action" value="Reset">
 </form>

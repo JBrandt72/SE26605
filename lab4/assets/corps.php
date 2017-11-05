@@ -6,9 +6,18 @@
  * Time: 10:23 AM
  */
 
-function getCorpsName($db, $col, $dir){
+function getCorpsName($db,  $cols, $dir){
+    if($cols == null)
+    {
+        $cols = "id";
+    }
+    if($dir == null)
+    {
+        $dir = "ASC";
+    }
+
     try {
-        $sql = "SELECT * FROM corps ORDER BY $col $dir";
+        $sql = "SELECT * FROM corps ORDER BY $cols $dir";
         $sql = $db->prepare($sql);
         $sql->execute();
         $corps = $sql->fetchAll(PDO::FETCH_ASSOC); //Gets all data from the table and saves it to actors at an associative array
@@ -96,5 +105,32 @@ function deleteRecord($db, $id){  //Function to delete a record from the databas
         return "Record " . $id ." deleted.";
     } catch (PDOException $e){
         die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function searchCorpCols($db, $col, $term){
+    //print_r($col);
+    print_r($term);
+    try {
+        $sql = $db->prepare("SELECT * FROM corps WHERE $col = '$term'"); //WHERE id = :id
+        //$sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        $corps = $sql->fetch(PDO::FETCH_ASSOC);
+        print_r($corps);
+        if($sql->rowCount() > 0) {
+            $table = "<table>" . PHP_EOL; //
+            $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
+            $table .= "<tr><td>" . $corps['corp'] . "</td>"; //adds cells holding actor data to the string building the table
+            $table .= "<td><a class='btn btn-link' href='assets/readpage.php?id=" .  $corps['id'] . "'>Read</a></td> ";
+            $table .= "<td><a class='btn btn-link' href='assets/updatepage.php?id=" .  $corps['id'] . "'>Update</a></td> ";
+            $table .= "<td><a class='btn btn-link' href='assets/deletepage.php?id=" .  $corps['id'] . "'>Delete</a></td> ";
+            $table .= "</tr>";
+            $table .= "</table>" . PHP_EOL;
+        } else {
+            $table = "There are no records." . PHP_EOL; //Message saved to the variable if the db table is empty
+        }
+        return $table; //Returns the table variable holding a string for the entire table
+    } catch(PDOException $e) {
+        die("There was a problem getting the record.");
     }
 }

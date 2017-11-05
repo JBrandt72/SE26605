@@ -14,28 +14,33 @@
     $db = dbConn(); //Connects to db
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ??
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
+    $colSort = filter_input(INPUT_GET, 'colSort', FILTER_SANITIZE_STRING) ?? NULL;
     $dir = filter_input(INPUT_GET, 'dir', FILTER_SANITIZE_STRING) ?? NULL;
-    $col = filter_input(INPUT_GET, 'col', FILTER_SANITIZE_STRING) ?? NULL;
+    $colSearch = filter_input(INPUT_GET, 'colSearch', FILTER_SANITIZE_STRING) ?? NULL;
+    $searchTerm = filter_input(INPUT_GET, 'term', FILTER_SANITIZE_STRING) ?? NULL;
 
 
-    echo getCorpsName($db, $col, $dir); //Calls function to get the Corporation name for all records
+    //echo getCorpsName($db, $col, $dir); //Calls function to get the Corporation name for all records
 
-switch ($action) {
-    case 'sort':
-        include_once ('assets/header.php');
-        $sortable = true;
-        $employees = getEmployeesAsSortedTable($db, $col, $dir);
-        $cols = getColumnNames($db, 'employees');
-        echo getEmployeesAsTable($db, $employees, $cols, $sortable);
-        break;
-    default:
-        include_once ('assets/header.php');
-        $sortable = true;
-        $employees = getEmployees($db);
-        $cols = getColumnNames($db, 'employees');
-        echo getEmployeesAsTable($db, $employees, $cols, $sortable);
-        break;
-}
+    switch ($action) {
+        default:
+            include_once ('assets/header.php');
+            echo getCorpsName($db, $colSort, $dir);
+            break;
+        case 'sort':
+            include_once ('assets/header.php');
+            echo getCorpsName($db, $colSort, $dir);
+            break;
+        case 'search':
+            include_once ('assets/header.php');
+            print_r($colSearch);
+            echo searchCorpCols($db, $colSearch, $searchTerm);
+            break;
+        case 'reset':
+            echo getCorpsName($db, $colSort, $dir);
+            break;
+
+    }
 
 
 

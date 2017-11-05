@@ -29,7 +29,7 @@ function dropDownForm($corps){
 
 <form method="get">
     Search Column:
-    <select name ="id">
+    <select name ="colSearch">
         <option value="id">ID</option>
         <option value="corp">Corp</option>
         <option value="date">Date</option>
@@ -39,6 +39,6 @@ function dropDownForm($corps){
         <option value="phone">Phone</option>
     </select>
     Term:<input type="text" name="term" id ="term">
-    <input type="submit" name="action" value="Submit">
-    <input type="submit" name="action" value="Reset">
+    <input type="submit" name="action" value="search">
+    <input type="submit" name="action" value="reset">
 </form>
