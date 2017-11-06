@@ -17,7 +17,7 @@
     $colSort = filter_input(INPUT_GET, 'colSort', FILTER_SANITIZE_STRING) ?? NULL;
     $dir = filter_input(INPUT_GET, 'dir', FILTER_SANITIZE_STRING) ?? NULL;
     $colSearch = filter_input(INPUT_GET, 'colSearch', FILTER_SANITIZE_STRING) ?? NULL;
-    $searchTerm = filter_input(INPUT_GET, 'term', FILTER_SANITIZE_STRING) ?? NULL;
+    $term = filter_input(INPUT_GET, 'term', FILTER_SANITIZE_STRING) ?? NULL;
 
 
     //echo getCorpsName($db, $col, $dir); //Calls function to get the Corporation name for all records
@@ -33,8 +33,8 @@
             break;
         case 'search':
             include_once ('assets/header.php');
-            print_r($colSearch);
-            echo searchCorpCols($db, $colSearch, $searchTerm);
+            //print_r($colSearch);
+            echo searchCorpCols($db, $colSearch, $term);
             break;
         case 'reset':
             echo getCorpsName($db, $colSort, $dir);
