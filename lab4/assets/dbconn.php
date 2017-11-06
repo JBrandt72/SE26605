@@ -44,9 +44,9 @@ function getColumnNames($db, $tbl){
     //print_r($column_names);
     //exit;
     return $column_names;
-}
+}       //function to get column names from db
 
-function dropDownForm($cols){
+function dropDownForm($cols){                 //function to create drop down options based on columns retrieved from db
     $option = "";
     foreach($cols as $col){
         $option .= "<option value='" . $col . "'>";
