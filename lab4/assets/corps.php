@@ -24,6 +24,7 @@ function getCorpsName($db, $cols, $dir){
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL; //
             $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
+            $table .= "<tr><td>" . $sql->rowCount() . " record(s)</td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
                 $table .= "<td><a class='btn btn-link' href='assets/readpage.php?id=" .  $corp['id'] . "'>Read</a></td> ";
@@ -109,19 +110,15 @@ function deleteRecord($db, $id){  //Function to delete a record from the databas
 }
 
 function searchCorpCols($db, $colSearch, $term){
-    //print_r($col);
-    //print_r($term);
     try {
         $sql = "SELECT * FROM corps WHERE $colSearch LIKE '%$term%'";
         $sql = $db->prepare($sql); //WHERE id = :id
-        //$sql->bindParam(':id', $id, PDO::PARAM_INT);
         $sql->execute();
         $corps = $sql->fetchAll(PDO::FETCH_ASSOC);
-        //print_r($corps);
         if($sql->rowCount() > 0) {
             $table = "<table>" . PHP_EOL; //
             $table .= "<tr><td><a href='assets/addpage.php'>Add a new record</a></td></tr>" . PHP_EOL;
-
+            $table .= "<tr><td>" . $sql->rowCount() . " record(s) found</td></tr>" . PHP_EOL;
             foreach ($corps as $corp) {
                 $table .= "<tr><td>" . $corp['corp'] . "</td>"; //adds cells holding actor data to the string building the table
                 $table .= "<td><a class='btn btn-link' href='assets/readpage.php?id=" . $corp['id'] . "'>Read</a></td> ";
