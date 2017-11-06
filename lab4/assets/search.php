@@ -39,6 +39,7 @@ function dropDownForm($corps){
         <option value="phone">Phone</option>
     </select>
     Term:<input type="text" name="term" id ="term">
-    <input type="submit" name="action" value="search">
-    <input type="submit" name="action" value="reset">
+    <input type="submit" value="Submit">
+    <input type="hidden" name="action" value="search">
+    <input type="submit" name="action" value="Reset">
 </form>

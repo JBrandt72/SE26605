@@ -20,6 +20,7 @@
     </select>
     Ascending:<input type="radio" name="dir" value ="ASC">
     Descending:<input type="radio" name="dir" value ="DESC">
-    <input type="submit" name="action" value="Submit">
+    <input type="submit" value="Submit">
+    <input type="hidden" name="action" value="sort">
     <input type="submit" name="action" value="Reset">
 </form>
