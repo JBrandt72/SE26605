@@ -43,3 +43,11 @@ function getColumnNames($db, $tbl){
     //exit;
     return $column_names;
 }
+
+
+function getAllCorps($db){
+    $sql = "SELECT * FROM corps";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

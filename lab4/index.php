@@ -36,7 +36,7 @@
             //print_r($colSearch);
             echo searchCorpCols($db, $colSearch, $term);
             break;
-        case 'reset':
+        case 'Reset':
             echo getCorpsName($db, $colSort, $dir);
             break;
 

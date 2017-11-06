@@ -21,7 +21,6 @@ function dbConn() //function to connect to database
 
 }
 
-
 function getColumnNames($db, $tbl){
 
     $sql = "select column_name from information_schema.columns where lower(table_name)=lower('". $tbl . "')";
@@ -45,4 +44,13 @@ function getColumnNames($db, $tbl){
     //print_r($column_names);
     //exit;
     return $column_names;
+}
+
+function dropDownForm($cols){
+    $option = "";
+    foreach($cols as $col){
+        $option .= "<option value='" . $col . "'>";
+        $option .= $col . "</option>";
+    }
+    return $option;
 }
