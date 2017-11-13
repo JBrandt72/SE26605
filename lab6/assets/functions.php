@@ -34,5 +34,17 @@ function isUrlValid($db, $url){
         }
     } else {
         echo("$url is not a valid URL");
+
+    }
+}
+
+function getCurlin($url)
+{
+    $file = file_get_contents("$url");
+    $pattern =  "/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/";
+
+    echo preg_match_all($pattern, $file, $matches, PREG_OFFSET_CAPTURE);
+    foreach($matches as $link){
+           print_r($link) .+ "<br />";
     }
 }

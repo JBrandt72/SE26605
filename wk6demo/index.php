@@ -14,7 +14,7 @@ if($_SESSION['username'] == NULL || !isset($_SESSION['username'])){     //nothin
 }
 
 
-$file = file_get_contents("http://www.cnn.com");
+
 
 echo preg_match_all('/Trump/', $file, $matches, PREG_OFFSET_CAPTURE); // (pattern, subject, #matches, where it occurs)
 print_r($matches);

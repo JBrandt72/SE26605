@@ -24,6 +24,9 @@
         case 'Add':
             echo isUrlValid($db, $url);
             break;
+        case 'Curl':
+            echo getCurlin($url);
+            break;
     }
 
 
