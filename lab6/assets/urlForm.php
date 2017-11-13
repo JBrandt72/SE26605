@@ -6,7 +6,8 @@
  * Time: 8:30 AM
  */
 ?>
+
 <form method="post" action="#">
-    <input type="text" name="term" id ="term">
-    <input type="submit" name="action">
+    <input type="text" name="url" id ="url">
+    <input type="submit" name="action" value="Add">
 </form>
