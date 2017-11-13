@@ -11,5 +11,5 @@ $_SESSION['username'] = "Jon";
 header('Location: foo.php');
 
 
-/* $cart []; empty array                 oftent stored as session var
+/* $cart []; empty array                 often stored as session var
     $product = [id, name, price, qty]    store in cart
