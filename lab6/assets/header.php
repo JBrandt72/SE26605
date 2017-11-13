@@ -12,14 +12,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 3</title>
+    <title>Lab 6</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <!-- css links go here -->
     <!-- js links go here -->
 </head>
 <body>
     <header>
-        <h2>Corporations App</h2>
+        <h2>URL Collector</h2>
     </header>
     <section>
 

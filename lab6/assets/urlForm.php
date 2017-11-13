@@ -7,7 +7,7 @@
  */
 ?>
 
-<form method="post" action="#">
+<form method="get" action="#">
     <input type="text" name="url" id ="url">
     <input type="submit" name="action" value="Add">
 </form>

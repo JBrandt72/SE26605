@@ -17,3 +17,22 @@ function addRecord($db, $url){  //Function to add a new actor to the database
         die("There was a problem adding the record."); //Error message if it fails to add new data to the db
     }
 }
+
+function isUrlValid($db, $url){
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        try{
+            $sql = $db->prepare("SELECT * FROM sites WHERE site = :site"); //sql statement to add placeholders to database
+            $sql->bindParam(':site', $url);
+            $sql->execute();
+            if ($sql->rowCount() > 0) {
+                echo("$url already exists");
+            } else{
+                echo addRecord($db, $url);
+            }
+        } catch (PDOException $e) {
+            die("There was a problem accessing the database."); //Error message if it fails to add new data to the db
+        }
+    } else {
+        echo("$url is not a valid URL");
+    }
+}

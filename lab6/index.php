@@ -22,7 +22,7 @@
         default:
             break;
         case 'Add':
-            echo addRecord($db, $url);
+            echo isUrlValid($db, $url);
             break;
     }
 
