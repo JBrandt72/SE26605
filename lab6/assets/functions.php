@@ -41,10 +41,15 @@ function isUrlValid($db, $url){
 function getCurlin($url)
 {
     $file = file_get_contents("$url");
-    $pattern =  "/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/";
-
+    $pattern = "/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/";
+    $strlinks = "";
     echo preg_match_all($pattern, $file, $matches, PREG_OFFSET_CAPTURE);
-    foreach($matches as $link){
-           print_r($link) .+ "<br />";
+    $matches = array_unique($matches[0]);
+    foreach ($matches as $match) {
+        foreach ($match as $link) {
+            print_r($link[0]);
+            echo "<br />";
+        }
     }
+    echo $strlinks;
 }
