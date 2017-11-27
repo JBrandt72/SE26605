@@ -20,6 +20,8 @@
 <body>
     <header>
         <h2>URL Collector</h2>
+        <a href="index.php">Add</a>
+        <a href="search.php">Search</a>
     </header>
     <section>
 

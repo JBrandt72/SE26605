@@ -32,7 +32,7 @@ function addRecord($db, $url){  //Function to add a new actor to the database
         $sql->execute();
         $pk = $db->lastInsertId();
 
-        return $sql->rowCount() . " rows inserted";
+        echo $sql->rowCount() . " rows inserted";
         getUniqueLinks($db, $url, $pk);
 
     } catch (PDOException $e) {
@@ -59,6 +59,7 @@ function getUniqueLinks($db, $url, $id)
         print_r($uniqueLink);
         echo "<br />";
         echo addLinks($db, $id, $uniqueLink);
+        echo "<br />";
     }
 }
 
@@ -74,5 +75,22 @@ function addLinks($db, $id, $link)
     } catch (PDOException $e) {
         die("There was a problem adding the record."); //Error message if it fails to add new data to the db
     }
+}
+
+function getAllLinks($db){
+    $sql = "SELECT * FROM sites";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function dropDownForm($sites){
+    $form = "";
+    foreach($sites as $site) {
+        $form .= "<option value='" . $site['site_id'] . "'>";
+        $form .= $site['site'] . "</option>";
+    }
+    return $form;
+
 }
 

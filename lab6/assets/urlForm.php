@@ -12,5 +12,4 @@ $url = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_STRING) ?? NULL;
 <form method="get" action="#">
     <input type="text" name="url" id ="url" value="<?php echo $url?>">
     <input type="submit" name="action" value="Add">
-    <input type="submit" name="action" value="Curl">
 </form>
