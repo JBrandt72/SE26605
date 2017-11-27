@@ -15,10 +15,9 @@
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
     $sites = getAllLinks($db);
 
-
 ?>
 
-<form method="get" action="#">
+<form method="post" action="#">
     <select name="Sites">
         <?php echo dropDownForm($sites) ?>
     </select>
@@ -30,6 +29,7 @@
 
     if($action = "Submit")
     {
-
-
+        $id = filter_input(INPUT_POST, 'Sites', FILTER_SANITIZE_STRING) ?? NULL;
+        $links = getAllLinksByID($db, $id);
+        print_r($links);
     }

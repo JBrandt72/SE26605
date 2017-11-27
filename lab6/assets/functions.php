@@ -91,6 +91,17 @@ function dropDownForm($sites){
         $form .= $site['site'] . "</option>";
     }
     return $form;
+}
 
+function getAllLinksByID($db, $id){
+    try {
+        $sql = $db->prepare("SELECT * FROM sitelinks WHERE id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        $links = $sql->fetch(PDO::FETCH_ASSOC);
+        return $links;
+    } catch(PDOException $e) {
+        die("There was a problem getting the record.");
+    }
 }
 
