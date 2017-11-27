@@ -6,18 +6,6 @@
  * Time: 8:38 AM
  */
 
-
-function addRecord($db, $url){  //Function to add a new actor to the database
-    try{
-        $sql = $db->prepare("INSERT INTO sites VALUES (null, :site, now())"); //sql statement to add placeholders to database
-        $sql->bindParam(':site', $url);
-        $sql->execute();
-        return $sql->rowCount() . " rows inserted";
-    } catch (PDOException $e) {
-        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
-    }
-}
-
 function isUrlValid($db, $url){
     if (filter_var($url, FILTER_VALIDATE_URL)) {
         try{
@@ -34,22 +22,57 @@ function isUrlValid($db, $url){
         }
     } else {
         echo("$url is not a valid URL");
-
     }
 }
 
-function getCurlin($url)
+function addRecord($db, $url){  //Function to add a new actor to the database
+    try{
+        $sql = $db->prepare("INSERT INTO sites VALUES (null, :site, now())"); //sql statement to add placeholders to database
+        $sql->bindParam(':site', $url);
+        $sql->execute();
+        $pk = $db->lastInsertId();
+
+        return $sql->rowCount() . " rows inserted";
+        getUniqueLinks($db, $url, $pk);
+
+    } catch (PDOException $e) {
+        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function getUniqueLinks($db, $url, $id)
 {
     $file = file_get_contents("$url");
     $pattern = "/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/";
-    $strlinks = "";
-    echo preg_match_all($pattern, $file, $matches, PREG_OFFSET_CAPTURE);
-    $matches = array_unique($matches[0]);
+    $links = array();
+    preg_match_all($pattern, $file, $matches, PREG_OFFSET_CAPTURE);
+
     foreach ($matches as $match) {
         foreach ($match as $link) {
-            print_r($link[0]);
-            echo "<br />";
+            $links[] = $link[0];
         }
     }
-    echo $strlinks;
+    $uniqueLinks = array_unique($links);
+
+    foreach ($uniqueLinks as $uniqueLink)
+    {
+        print_r($uniqueLink);
+        echo "<br />";
+        echo addLinks($db, $id, $uniqueLink);
+    }
 }
+
+function addLinks($db, $id, $link)
+{
+    try{
+        $sql = $db->prepare("INSERT INTO sitelinks VALUES (:site_id, :link)"); //sql statement to add placeholders to database
+        $sql->bindParam(':site_id', $id);
+        $sql->bindParam(':link', $link);
+        $sql->execute();
+        return $sql->rowCount() . " rows inserted";
+
+    } catch (PDOException $e) {
+        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+    }
+}
+
