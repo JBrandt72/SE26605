@@ -31,8 +31,7 @@
     {
         $id = filter_input(INPUT_GET, 'Sites', FILTER_SANITIZE_STRING) ?? NULL;
         $links = getAllLinksByID($db, $id);
-        foreach($links as $link){
-            echo $link['link'] . "<br>";
-        }
+        $site = getSiteByID($db, $id);
+        echo linksAsTable($site, $links);
 
     }

@@ -7,7 +7,7 @@
  */
 
 function isUrlValid($db, $url){
-    if (filter_var($url, FILTER_VALIDATE_URL)) {
+    if (filter_var($url, FILTER_VALIDATE_URL) && @file_get_contents("$url")) {
         try{
             $sql = $db->prepare("SELECT * FROM sites WHERE site = :site"); //sql statement to add placeholders to database
             $sql->bindParam(':site', $url);
@@ -21,7 +21,7 @@ function isUrlValid($db, $url){
             die("There was a problem accessing the database."); //Error message if it fails to add new data to the db
         }
     } else {
-        echo("$url is not a valid URL");
+        echo("$url is not a valid URL or not accessible");
     }
 }
 
@@ -32,7 +32,7 @@ function addRecord($db, $url){  //Function to add a new actor to the database
         $sql->execute();
         $pk = $db->lastInsertId();
 
-        echo $sql->rowCount() . " rows inserted";
+        echo $sql->rowCount() . " site";
         getUniqueLinks($db, $url, $pk);
 
     } catch (PDOException $e) {
@@ -42,7 +42,7 @@ function addRecord($db, $url){  //Function to add a new actor to the database
 
 function getUniqueLinks($db, $url, $id)
 {
-    $file = file_get_contents("$url");
+    $file = @file_get_contents("$url");
     $pattern = "/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/";
     $links = array();
     preg_match_all($pattern, $file, $matches, PREG_OFFSET_CAPTURE);
@@ -53,14 +53,16 @@ function getUniqueLinks($db, $url, $id)
         }
     }
     $uniqueLinks = array_unique($links);
+    $uniqueLinks = array_values($uniqueLinks);
+    $records = 0;
 
-    foreach ($uniqueLinks as $uniqueLink)
-    {
-        print_r($uniqueLink);
-        echo "<br />";
+    foreach ($uniqueLinks as $uniqueLink) {
         echo addLinks($db, $id, $uniqueLink);
-        echo "<br />";
+        $records++;
     }
+
+    echo " and " . $records . " links added";
+
 }
 
 function addLinks($db, $id, $link)
@@ -70,8 +72,6 @@ function addLinks($db, $id, $link)
         $sql->bindParam(':site_id', $id);
         $sql->bindParam(':link', $link);
         $sql->execute();
-        return $sql->rowCount() . " rows inserted";
-
     } catch (PDOException $e) {
         die("There was a problem adding the record."); //Error message if it fails to add new data to the db
     }
@@ -103,5 +103,36 @@ function getAllLinksByID($db, $id){
     } catch(PDOException $e) {
         die("There was a problem getting the record.");
     }
+}
+
+function getSiteByID($db, $id){
+    try {
+        $sql = $db->prepare("SELECT * FROM sites WHERE site_id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        $links = $sql->fetch(PDO::FETCH_ASSOC);
+        return $links;
+    } catch(PDOException $e) {
+        die("There was a problem getting the record.");
+    }
+}
+
+
+function linksAsTable($site, $links){
+
+
+    $table = "<table class='table'>" . PHP_EOL;
+
+    $table .= "<tr><th>" . $site['site'] . " " . date("m/d/Y H:i:s", strtotime($site['date'])) . "</th></tr>";
+
+    foreach($links as $link){
+        $table .= "<tr><td><a href='" . $link['link']  ."'  target='popup'>" . $link['link']  . "</a></td></tr>";
+    }
+
+    $table .= "</table>";
+
+    return $table;
+
+
 }
 
