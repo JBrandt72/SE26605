@@ -17,7 +17,7 @@
 
 ?>
 
-<form method="post" action="#">
+<form method="get" action="#">
     <select name="Sites">
         <?php echo dropDownForm($sites) ?>
     </select>
@@ -27,9 +27,12 @@
 
 <?php
 
-    if($action = "Submit")
+    if($action == "Submit")
     {
-        $id = filter_input(INPUT_POST, 'Sites', FILTER_SANITIZE_STRING) ?? NULL;
+        $id = filter_input(INPUT_GET, 'Sites', FILTER_SANITIZE_STRING) ?? NULL;
         $links = getAllLinksByID($db, $id);
-        print_r($links);
+        foreach($links as $link){
+            echo $link['link'] . "<br>";
+        }
+
     }

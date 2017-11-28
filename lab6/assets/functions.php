@@ -95,10 +95,10 @@ function dropDownForm($sites){
 
 function getAllLinksByID($db, $id){
     try {
-        $sql = $db->prepare("SELECT * FROM sitelinks WHERE id = :id");
+        $sql = $db->prepare("SELECT * FROM sitelinks WHERE site_id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
         $sql->execute();
-        $links = $sql->fetch(PDO::FETCH_ASSOC);
+        $links = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $links;
     } catch(PDOException $e) {
         die("There was a problem getting the record.");
