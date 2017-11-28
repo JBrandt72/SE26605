@@ -32,7 +32,6 @@ function addRecord($db, $url){  //Function to add a new actor to the database
         $sql->execute();
         $pk = $db->lastInsertId();
 
-        echo $sql->rowCount() . " site";
         getUniqueLinks($db, $url, $pk);
 
     } catch (PDOException $e) {
@@ -54,7 +53,9 @@ function getUniqueLinks($db, $url, $id)
     }
     $uniqueLinks = array_unique($links);
     $uniqueLinks = array_values($uniqueLinks);
-    $records = 0;
+    $records = count($uniqueLinks);
+
+    
 
     foreach ($uniqueLinks as $uniqueLink) {
         echo addLinks($db, $id, $uniqueLink);
@@ -87,8 +88,11 @@ function getAllLinks($db){
 function dropDownForm($sites){
     $form = "";
     foreach($sites as $site) {
-        $form .= "<option value='" . $site['site_id'] . "'>";
-        $form .= $site['site'] . "</option>";
+        $form .= "<option value='" . $site['site_id'] . "'";
+        if($_GET['Sites'] == $site['site_id']){
+            $form .= "selected='selected'";
+        }
+        $form .= ">" . $site['site'] . "</option>";
     }
     return $form;
 }
@@ -123,7 +127,7 @@ function linksAsTable($site, $links){
 
     $table = "<table class='table'>" . PHP_EOL;
 
-    $table .= "<tr><th>" . $site['site'] . " " . date("m/d/Y H:i:s", strtotime($site['date'])) . "</th></tr>";
+    $table .= "<tr><th>" . $site['site'] . " " . date("m/d/Y H:i:s", strtotime($site['date'])) . " " .  count($links) . " links" . "</th></tr>";
 
     foreach($links as $link){
         $table .= "<tr><td><a href='" . $link['link']  ."'  target='popup'>" . $link['link']  . "</a></td></tr>";

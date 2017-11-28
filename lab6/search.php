@@ -35,3 +35,7 @@
         echo linksAsTable($site, $links);
 
     }
+
+
+
+    include_once ("assets/footer.php");
