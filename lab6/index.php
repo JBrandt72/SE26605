@@ -17,7 +17,7 @@
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
     $url = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_STRING) ?? NULL;
 
-    if($action = "Add")
+    if($action == "Add")
     {
         echo isUrlValid($db, $url);
     }

@@ -31,7 +31,7 @@ function addRecord($db, $url){  //Function to add a new actor to the database
         $sql->bindParam(':site', $url);
         $sql->execute();
         $pk = $db->lastInsertId();
-
+        echo $url . " successfully added";
         getUniqueLinks($db, $url, $pk);
 
     } catch (PDOException $e) {
@@ -55,14 +55,14 @@ function getUniqueLinks($db, $url, $id)
     $uniqueLinks = array_values($uniqueLinks);
     $records = count($uniqueLinks);
 
-    
+    echo " with " . $records . " links" . "<br>";
 
     foreach ($uniqueLinks as $uniqueLink) {
         echo addLinks($db, $id, $uniqueLink);
-        $records++;
+        //$records++;
     }
 
-    echo " and " . $records . " links added";
+    //echo " and " . $records . " links added";
 
 }
 
@@ -73,6 +73,7 @@ function addLinks($db, $id, $link)
         $sql->bindParam(':site_id', $id);
         $sql->bindParam(':link', $link);
         $sql->execute();
+        echo $link . "<br>";
     } catch (PDOException $e) {
         die("There was a problem adding the record."); //Error message if it fails to add new data to the db
     }
