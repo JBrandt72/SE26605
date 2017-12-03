@@ -8,11 +8,11 @@
 ?>
 
 
-    <section style="float:right">
+    <section style="float:left">
         <form method="post" action ="#">
             Email: <input type="text" name="email" value="" /><br />
             Password: <input type="text" name="pwd" value="" /><br />
-            Confirm Password: <input type="text" name="conPwd" value="" /><br />
+            Confirm Password: <input type="text" name="conpwd" value="" /><br />
 
             <input type="submit" name="action" value="Sign Up">
         </form>
