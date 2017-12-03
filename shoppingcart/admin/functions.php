@@ -24,7 +24,7 @@ function getUserLogin($db, $email)
         $sql = $db->prepare("SELECT * FROM users WHERE email = :email");
         $sql->bindParam(':email', $email);
         $sql->execute();
-        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $row = $sql->fetch(PDO::FETCH_ASSOC);
         return $row;
     } catch(PDOException $e) {
         die("There was a problem getting the record.");
