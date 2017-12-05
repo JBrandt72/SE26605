@@ -13,33 +13,29 @@
     $db = dbConn(); //Connects to db
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ??          //Saves all user input to variables
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
-    $id = filter_input(INPUT_GET, 'Categories', FILTER_SANITIZE_STRING) ?? NULL;
+    $categories = getAllCats($db);
+    $product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING) ?? NULL;
+    $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
+    $image = filter_input(INPUT_POST, 'image', filter) ?? NULL;
     $button = "Add";
-    $selectedcat = "";
 
 
     switch ($action) {
+        default:
+            include_once("prodform.php");
+            break;
         case 'Add':
-            echo addCategory($db, $category); //calls function to add new record
+            echo addProduct($db, $product); //calls function to add new record
             break;
         case 'Edit':
             $button = "Update";
-            foreach($categories as $cat) {
-                if($cat['category_id'] == $id){
-                    $selectedcat = $cat['category'];
-                }
-            }
-            //echo $selectedcat;
             break;
         case 'Update':
-            echo updateCategory($db, $id, $category);
+            echo updateProduct($db, $id, $category);
             $button = "Add";
             break;
         case 'Delete':
-
-            break;
-        case 'View':
-
+            echo deleteCategory($db, $id);
             break;
     }
 

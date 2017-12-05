@@ -13,17 +13,14 @@ session_start();
     $id = filter_input(INPUT_GET, 'Categories', FILTER_SANITIZE_STRING) ?? NULL;
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_STRING) ?? NULL;
     $button = "Add";
-    //$_SESSION['selectedcat'] = "";
     $selectedcat = "";
 
     switch ($action) {
         default:
-            include_once("catdropdownform.php");
             include_once("catform.php");
             break;
         case 'Add':
             echo addCategory($db, $category);
-            include_once("catdropdownform.php");
             include_once("catform.php");
             break;
         case 'Edit':
@@ -34,14 +31,12 @@ session_start();
                     $selectedcat = $cat['category'];
                 }
             }
-            include_once("catdropdownform.php");
             include_once("catform.php");
             break;
         case 'Update':
             echo updateCategory($db, $_SESSION['cid'], $category);
             break;
         case 'Delete':
-            echo $id;
             echo deleteCategory($db, $id);
             break;
     }
