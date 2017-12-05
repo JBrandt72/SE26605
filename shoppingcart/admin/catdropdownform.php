@@ -9,7 +9,7 @@
 
 <section>
     <h2>Category Management</h2>
-    <form method="get" action="#">
+    <form method="get" action="crudcat.php">
         <select name="Categories">
             <?php echo dropDownForm($categories) ?>
          </select>

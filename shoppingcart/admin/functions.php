@@ -72,8 +72,20 @@ function updateCategory($db, $category_id, $category){   //Function to update a 
         $sql->bindParam(':category_id', $category_id, PDO::PARAM_INT);
         $sql->bindParam(':category', $category);
         $sql->execute();
-        return "Update complete.";
+        //return "Update complete.";
+        return $sql->rowCount() . " row updated";
     } catch (PDOException $e){
         die("There was a problem updating the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function deleteCategory($db, $id){  //Function to delete a record from the database
+    try {
+        $sql = $db->prepare("DELETE FROM categories WHERE category_id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        return "Record " . $id ." deleted.";
+    } catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
     }
 }
