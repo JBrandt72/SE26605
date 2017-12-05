@@ -6,7 +6,7 @@
  * Time: 11:03 AM
  */
 
-    require_once("../assets/dbconn.php");
+    require_once("dbconn.php");
     include_once("../assets/header.php");
     require_once("functions.php");
     include_once("loginform.php");
@@ -41,6 +41,7 @@
 
                 session_start(); //indicates that this script will need access to session vars
                 $_SESSION['userID']  = $user['user_id'];
+                header('Location: admin.php');
 
             } else {
                 echo "invalid";
