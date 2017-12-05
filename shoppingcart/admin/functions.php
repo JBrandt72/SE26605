@@ -6,7 +6,7 @@
  * Time: 2:17 PM
  */
 
-function addUser($db, $email, $pwd){  //Function to add a new user to the database
+function addUser($db, $email, $pwd){  //Function to add a new user to the users table
     try{
         $sql = $db->prepare("INSERT INTO users VALUES (null, :email, :password, now())"); //sql statement to add placeholders to database
         $sql->bindParam(':email', $email);
@@ -18,7 +18,7 @@ function addUser($db, $email, $pwd){  //Function to add a new user to the databa
     }
 }
 
-function getUserLogin($db, $email)
+function getUserLogin($db, $email)  //Function to get all data from the users table
 {
     try {
         $sql = $db->prepare("SELECT * FROM users WHERE email = :email");
@@ -32,29 +32,29 @@ function getUserLogin($db, $email)
 }
 
 
-function getAllCats($db){
+function getAllCats($db){   //Function to get all data from the categories table
     $sql = "SELECT * FROM categories";
     $stmt = $db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function dropDownForm($cats){
+function dropDownForm($cats){   //Function to populate the dropdown form with data from the categories table
     $form = "";
     foreach($cats as $cat) {
         $form .= "<option value='" . $cat['category_id'] . "'";
-        /*
-        if($_GET['Sites'] == $cat['site_id']){
+
+        if($_GET['Categories'] == $cat['category_id']){
             $form .= "selected='selected'";
         }
-        */
+
         $form .= ">" . $cat['category'] . "</option>";
     }
     return $form;
 }
 
 
-function addCategory($db, $category){  //Function to add a new actor to the database
+function addCategory($db, $category){  //Function to add a new record to the categories table
     try{
         $sql = $db->prepare("INSERT INTO categories VALUES (null, :category)"); //sql statement to add placeholders to database
         $sql->bindParam(':category', $category);
@@ -63,5 +63,17 @@ function addCategory($db, $category){  //Function to add a new actor to the data
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
         die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function updateCategory($db, $category_id, $category){   //Function to update a record in the categories table
+    try {
+        $sql = $db->prepare("UPDATE categories SET category = :category WHERE category_id = :category_id");
+        $sql->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+        $sql->bindParam(':category', $category);
+        $sql->execute();
+        return "Update complete.";
+    } catch (PDOException $e){
+        die("There was a problem updating the record."); //Error message if it fails to add new data to the db
     }
 }

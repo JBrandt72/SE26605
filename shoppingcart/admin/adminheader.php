@@ -21,8 +21,8 @@
 <header>
     <h2>Store</h2>
     <h3>Admin Control</h3><input type="submit" name="action" value="Log Out"><br />
-    <a href="index.php">Manage Categories</a>
-    <a href="search.php">Manage Products</a>
+    <a href="crudcat.php">Manage Categories</a>
+    <a href="crudprod.php">Manage Products</a>
 
 </header>
 <section>
