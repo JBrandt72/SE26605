@@ -90,6 +90,18 @@ function deleteCategory($db, $id){  //Function to delete a record from the datab
     }
 }
 
+function checkImage($file_ext){ //Function to check if image has proper file extension
+    $extensions= array("jpeg","jpg","png");
+    $check = false;
+    if(in_array($file_ext,$extensions)=== false){
+        echo "Please choose a valid file type (jpg, png)";
+    } else {
+        $check = true;
+        echo "Valid";
+    }
+    return $check;
+}
+
 function addProduct($db, $category_id, $product, $price, $image){  //Function to add a new record to the products table
     try{
         $sql = $db->prepare("INSERT INTO products VALUES (null, :category_id, :product, :price, :image)"); //sql statement to add placeholders to database
@@ -97,7 +109,6 @@ function addProduct($db, $category_id, $product, $price, $image){  //Function to
         $sql->bindParam(':product', $product);
         $sql->bindParam(':price', $price);
         $sql->bindParam(':image', $image);
-
         $sql->execute();
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
@@ -131,3 +142,46 @@ function deleteProduct($db, $id){  //Function to delete a record from the databa
         die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
     }
 }
+
+function viewProductsAsTable($db, $category_id){
+    try {
+        $sql = $db->prepare("SELECT * FROM products WHERE category_id = :category_id");
+        $sql->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+        $sql->execute();
+        $prods = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Image</th><th>&nbsp</th></tr>";
+        foreach ($prods as $prod) {
+            $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . $prod['price'] . "</td>";
+            $table .= "<img src='images/" . $prod['image'] . "'>";
+            $table .= "<a href= '' >Edit</a></tr>";
+        }
+        $table .= "</table>";
+        return $table;
+    }
+    catch (PDOException $e){
+            die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
