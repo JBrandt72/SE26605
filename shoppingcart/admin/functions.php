@@ -160,6 +160,18 @@ function checkForProducts($db, $id){
     }
 }
 
+function getOneProduct($db, $id){
+    try {
+        $sql = $db->prepare("SELECT * FROM products WHERE product_id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        $prod = $sql->fetch(PDO::FETCH_ASSOC);
+        return $prod;
+    } catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
+
 function viewProductsAsTable($db, $category_id){
     try {
         $sql = $db->prepare("SELECT * FROM products WHERE category_id = :category_id");
@@ -169,9 +181,9 @@ function viewProductsAsTable($db, $category_id){
         $table = "<table class='table'>" . PHP_EOL;
         $table .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Image</th><th>&nbsp</th></tr>";
         foreach ($prods as $prod) {
-            $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . $prod['price'] . "</td>";
+            $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . "$" . $prod['price'] . "</td>";
             $table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-            $table .= "<td><a href= '' >Edit</a></td></tr>";
+            $table .= "<td><a href='crudprod.php?action=Edit&prodID=".$prod['product_id']."'>Edit</a> | <a href='crudprod.php?action=delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
         }
         $table .= "</table>";
         return $table;
@@ -180,6 +192,8 @@ function viewProductsAsTable($db, $category_id){
             die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
         }
 }
+
+
 
 
 

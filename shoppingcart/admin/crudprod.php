@@ -16,8 +16,8 @@
     $categories = getAllCats($db);
     $catid = filter_input(INPUT_POST, 'Categories', FILTER_SANITIZE_STRING) ?? NULL;
     $product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING) ?? NULL;
+    $prodid = filter_input(INPUT_GET, 'prodID', FILTER_VALIDATE_INT); //Gets id from url
     $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
-    //$image = filter_input(INPUT_POST, 'image', filter) ?? NULL;
     $button = "Add";
 
     if(isset($_FILES['image'])){
@@ -45,9 +45,16 @@
             break;
         case 'Edit':
             $button = "Update";
+            $prod = getOneProduct($db, $prodid);
+            include_once("produpdateform.php");
             break;
         case 'Update':
-            echo updateProduct($db, $product_id, $category_id, $product, $price, $file_name);
+            if (isset($_POST['keepimg'])) {
+                $image = filter_input(INPUT_POST, 'imageOG', FILTER_SANITIZE_STRING) ?? NULL;
+            } else {
+                $image = $file_name;
+            }
+            echo updateProduct($db, $product_id, $category_id, $product, $price, $image);
             $button = "Add";
             break;
         case 'Delete':
