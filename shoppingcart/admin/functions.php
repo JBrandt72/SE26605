@@ -89,3 +89,45 @@ function deleteCategory($db, $id){  //Function to delete a record from the datab
         die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
     }
 }
+
+function addProduct($db, $category_id, $product, $price, $image){  //Function to add a new record to the products table
+    try{
+        $sql = $db->prepare("INSERT INTO products VALUES (null, :category_id, :product, :price, :image)"); //sql statement to add placeholders to database
+        $sql->bindParam(':category_id', $category_id);
+        $sql->bindParam(':product', $product);
+        $sql->bindParam(':price', $price);
+        $sql->bindParam(':image', $image);
+
+        $sql->execute();
+        return $sql->rowCount() . " rows inserted";
+    } catch (PDOException $e) {
+        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function updateProduct($db, $product_id, $category_id, $product, $price, $image){   //Function to update a record in the products table
+    try {
+        $sql = $db->prepare("UPDATE products SET category_id = :category_id, product = :product, price = :price, image = :image WHERE product_id = :product_id");
+        $sql->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $sql->bindParam(':category_id', $category_id);
+        $sql->bindParam(':product', $product);
+        $sql->bindParam(':price', $price);
+        $sql->bindParam(':image', $image);
+        $sql->execute();
+        //return "Update complete.";
+        return $sql->rowCount() . " row updated";
+    } catch (PDOException $e){
+        die("There was a problem updating the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function deleteProduct($db, $id){  //Function to delete a record from the database
+    try {
+        $sql = $db->prepare("DELETE FROM products WHERE category_id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        return "Record " . $id ." deleted.";
+    } catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
