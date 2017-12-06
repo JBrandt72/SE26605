@@ -143,6 +143,23 @@ function deleteProduct($db, $id){  //Function to delete a record from the databa
     }
 }
 
+function checkForProducts($db, $id){
+    try {
+        $sql = $db->prepare("SELECT * FROM products WHERE category_id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        if($sql->rowCount() > 0)
+        {
+            $check = true;
+        } else{
+            $check = false;
+        }
+        return $check;
+    } catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
+
 function viewProductsAsTable($db, $category_id){
     try {
         $sql = $db->prepare("SELECT * FROM products WHERE category_id = :category_id");
@@ -153,8 +170,8 @@ function viewProductsAsTable($db, $category_id){
         $table .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Image</th><th>&nbsp</th></tr>";
         foreach ($prods as $prod) {
             $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . $prod['price'] . "</td>";
-            $table .= "<img src='images/" . $prod['image'] . "'>";
-            $table .= "<a href= '' >Edit</a></tr>";
+            $table .= "<td><img src='images/" . $prod['image'] . "'></td>";
+            $table .= "<td><a href= '' >Edit</a></td></tr>";
         }
         $table .= "</table>";
         return $table;

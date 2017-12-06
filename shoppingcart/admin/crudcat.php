@@ -37,7 +37,11 @@ session_start();
             echo updateCategory($db, $_SESSION['cid'], $category);
             break;
         case 'Delete':
-            echo deleteCategory($db, $id);
+            if(checkForProducts($db, $id)){
+                echo "This category still has products.";
+            } else{
+                echo deleteCategory($db, $id);
+            }
             break;
     }
 
