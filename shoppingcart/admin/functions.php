@@ -97,7 +97,6 @@ function checkImage($file_ext){ //Function to check if image has proper file ext
         echo "Please choose a valid file type (jpg, png)";
     } else {
         $check = true;
-        echo "Valid";
     }
     return $check;
 }
@@ -183,7 +182,7 @@ function viewProductsAsTable($db, $category_id){
         foreach ($prods as $prod) {
             $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . "$" . $prod['price'] . "</td>";
             $table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-            $table .= "<td><a href='crudprod.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='crudprod.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
+            $table .= "<td><a href='prodcrud.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='prodcrud.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
         }
         $table .= "</table>";
         return $table;
@@ -214,19 +213,24 @@ function viewStoreProducts($db, $category_id){
     }
 }
 
-function addToCart($db, $id){
-
-
-    try {
-        $sql = $db->prepare("SELECT * FROM products WHERE product_id = :id");
-        $sql->bindParam(':id', $id, PDO::PARAM_INT);
-        $sql->execute();
-        $prod = $sql->fetch(PDO::FETCH_ASSOC);
-        return $prod;
-
-    } catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+function viewCartAsTable(){
+    if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        $total = 0;
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Image</th><th>&nbsp</th></tr>";
+        foreach ($_SESSION['cart'] as $key => $prod) {
+            $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . "$" . $prod['price'] . "</td>";
+            $table .= "<td><img src='admin/images/" . $prod['image'] . "'></td>";
+            $table .= "<td><a href='index.php?action=Remove&key=".$key."'>Remove Item</a></td></tr>";
+            $total += $prod['price'];
+        }
+        $table .= "<tr><td><b>Total:</b> $" .  number_format((float)$total, 2, '.', '') . "</td></tr>";
+        $table .= "</table>";
+        $results = $table;
+    } else{
+        $results = "Cart is empty.";
     }
+    return $results;
 }
 
 

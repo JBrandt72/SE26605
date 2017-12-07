@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))session_start();
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
+    header('Location: login.php');
+}
 
     require_once("dbconn.php");
     include_once("adminheader.php");
@@ -49,4 +52,3 @@ session_start();
             break;
     }
 
-    include_once ("../assets/footer.php");

@@ -1,32 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mortimer
- * Date: 12/3/2017
- * Time: 3:01 PM
- */
+if(!isset($_SESSION))session_start();
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
+    header('Location: login.php');
+}
 
-    require_once("dbconn.php");
-    include_once("adminheader.php");
-    require_once("functions.php");
-
-
-    session_start();
-    if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){     //nothing can be sent to browser (not even a blank line)
-        header('Location: login.php');
-    }
-    echo "User " . $_SESSION['userID'] . " logged in.";
-
-    $db = dbConn(); //Connects to db
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ??
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
 
+    switch ($action) {
+        default:
+            include_once("adminheader.php");
+            require_once("dbconn.php");
+            require_once("functions.php");
+            break;
+        case "Categories":
+            include_once("catcrud.php");
+            break;
+        case "Products":
+            include_once("prodcrud.php");
+            break;
+        case 'LogOut':
+            header('Location: login.php');
+            unset($_SESSION['userID']);
+            break;
+    }
 
 
-
-
-
-
-
-
-    include_once("../assets/footer.php");
+    include_once("adminfooter.php");

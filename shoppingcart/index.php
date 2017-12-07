@@ -31,22 +31,30 @@ if(!isset($_SESSION))session_start();
             } else{
                 $_SESSION['cart'][]= $prod;
             }
-            print_r($_SESSION['cart']);
+            //print_r($_SESSION['cart']);
             include_once("assets/header.php");
             include_once("assets/inventoryform.php");
             echo viewStoreProducts($db, $catid);
             break;
         case 'Cart':
             include_once("assets/header.php");
-            foreach($_SESSION['cart'] as $items){
-                    print_r($items);
+            echo viewCartAsTable();
+            echo "<form method='get' action='index.php'><input type='submit' name='action' value='Empty'></form>";
+            break;
+        case 'Remove':
+            include_once("assets/header.php");
+            $key = $_GET['key'];
+            if(isset($_SESSION['cart'])) {
+               unset($_SESSION['cart'][$key]);
             }
+            echo viewCartAsTable();
             echo "<form method='get' action='index.php'><input type='submit' name='action' value='Empty'></form>";
             break;
         case 'Empty':
             unset($_SESSION['cart']);
+            include_once("assets/header.php");
+            include_once("assets/inventoryform.php");
     }
-
 
 
     include_once("assets/footer.php");

@@ -6,7 +6,8 @@
  * Time: 7:15 PM
  */
 ?>
-
+<h1>Admin Login</h1>
+<a href="../index.php">Return to Store</a><br>
 <section style="float:left">
     <form method="post" action ="#">
         Email: <input type="text" name="emailLogIn" value="" /><br />

@@ -12,7 +12,7 @@
 </body>
 
 <footer style="clear:both">
-    Copyright &copy; <?php echo Date('Y'); ?> Jonathan Brandt. All rights reserved
+    Copyright &copy; <?php echo Date('Y'); ?> Jonathan Brandt. All rights reserved. <a href="admin/admin.php">Admin Access</a><br>
 </footer>
 
 </html>

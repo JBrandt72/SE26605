@@ -9,7 +9,7 @@
     if(isset($_SESSION['cart'])) {
         $cartItemCount = count($_SESSION['cart']);
     } else {
-        $cartItemCount = 0;
+        $cartItemCount = "";
     }
 
 ?>
@@ -26,8 +26,7 @@
 <body>
 <header>
     <h2>Vintage Gear</h2>
-    <a href="index.php">Admin</a><br>
-    <a href="index.php">Inventory</a>
-    <a href="index.php?action=Cart">Cart<?php echo $cartItemCount; ?></a>
+    <a href="index.php">Inventory</a> |
+    <a href="index.php?action=Cart">Cart<sup><?php echo $cartItemCount; ?></sup></a>
 </header>
 <section>

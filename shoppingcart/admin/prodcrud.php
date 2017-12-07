@@ -1,10 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mortimer
- * Date: 12/4/2017
- * Time: 6:45 PM
- */
+if(!isset($_SESSION))session_start();
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
+    header('Location: login.php');
+}
 
     require_once("dbconn.php");
     include_once("adminheader.php");
@@ -62,4 +60,3 @@
     }
 
 
-    include_once ("../assets/footer.php");

@@ -20,9 +20,11 @@
 <body>
 <header>
     <h2>Store</h2>
-    <h3>Admin Control</h3><input type="submit" name="action" value="Log Out"><br />
-    <a href="crudcat.php">Manage Categories</a>
-    <a href="crudprod.php">Manage Products</a>
+    <h3>Admin Control</h3><form action="post"><br />
+    <a href="../index.php">Store Front</a> |
+    <a href="admin.php?action=Categories">Manage Categories</a> |
+    <a href="admin.php?action=Products">Manage Products</a> |
+    <a href="login.php?action=LogOut">Log Out</a>
 
 </header>
 <section>
