@@ -20,37 +20,34 @@ if(!isset($_SESSION))session_start();
         case 'View':
             include_once("assets/header.php");
             include_once("assets/inventoryform.php");
-            echo viewStoreProducts($db, $catid);
+            echo viewStoreProducts($db, $catid); //Calls function to display all products in a category
             break;
         case 'Add':
-            $prod = getOneProduct($db, $prodid);
-            if(!isset($_SESSION['cart'])) {
+            $prod = getOneProduct($db, $prodid); //Gets details for one product from the db
+            if(!isset($_SESSION['cart'])) {     //Checks if session variable exits and adds the product details to the array
                 $_SESSION['cart'] = [];
                 $_SESSION['cart'][] = $prod;
             } else{
                 $_SESSION['cart'][]= $prod;
             }
-            //print_r($_SESSION['cart']);
             include_once("assets/header.php");
             include_once("assets/inventoryform.php");
             echo viewStoreProducts($db, $catid);
             break;
         case 'Cart':
             include_once("assets/header.php");
-            echo viewCartAsTable();
-            echo "<form method='get' action='index.php'><input type='submit' name='action' value='Empty'></form>";
+            echo viewCartAsTable();     //Calls function to display cart contents for checkout
             break;
         case 'Remove':
             include_once("assets/header.php");
-            $key = $_GET['key'];
+            $key = $_GET['key'];    //Gets key for particular product and removes it from cart
             if(isset($_SESSION['cart'])) {
                unset($_SESSION['cart'][$key]);
             }
             echo viewCartAsTable();
-            echo "<form method='get' action='index.php'><input type='submit' name='action' value='Empty'></form>";
             break;
         case 'Empty':
-            unset($_SESSION['cart']);
+            unset($_SESSION['cart']);       // Empties cart of all products
             include_once("assets/header.php");
             include_once("assets/inventoryform.php");
     }

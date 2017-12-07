@@ -1,6 +1,6 @@
 <?php
-if(!isset($_SESSION))session_start();
-if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
+if(!isset($_SESSION))session_start();                               //Checks if session is in progress before starting new session
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){         //Checks if valid user session is active and redirects to the login page if not
     header('Location: login.php');
 }
 
@@ -13,13 +13,13 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
             require_once("dbconn.php");
             require_once("functions.php");
             break;
-        case "CategoryMan":
+        case "CategoryMan":                     //Includes page for category management
             include_once("catcrud.php");
             break;
-        case "ProductMan":
+        case "ProductMan":                      //Includes page for product management
             include_once("prodcrud.php");
             break;
-        case 'LogOut':
+        case 'LogOut':                          //Redirects to the login page
             header('Location: login.php');
             unset($_SESSION['userID']);
             break;

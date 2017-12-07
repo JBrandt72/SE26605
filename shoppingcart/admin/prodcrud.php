@@ -1,6 +1,6 @@
 <?php
-if(!isset($_SESSION))session_start();
-if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
+if(!isset($_SESSION))session_start();                               //Checks if session is in progress before starting new session
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){     //Checks if valid user session is active and redirects to the login page if not
     header('Location: login.php');
 }
 
@@ -19,10 +19,10 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
     $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
     $button = "Add";
 
-    if(isset($_FILES['image'])){
-        $file_name = $_FILES['image']['name'];
+    if(isset($_FILES['image'])){                    //Checks if image variable exists
+        $file_name = $_FILES['image']['name'];          //Gets filename and temp name for moving the file
         $file_tmp = $_FILES['image']['tmp_name'];
-        $ext = strtolower(substr($file_name, strpos($file_name, '.')+1));
+        $ext = strtolower(substr($file_name, strpos($file_name, '.')+1));  //Gets the file extension
     }
 
     switch ($action) {
@@ -34,10 +34,10 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
             echo viewProductsAsTable($db,$catid);
             break;
         case 'Add':
-            if(checkImage($ext))
+            if(checkImage($ext))                                        //Calls function to check for valid file extension (jpg or png only in this case)
             {
-                move_uploaded_file($file_tmp,"images/".$file_name);
-                echo addProduct($db, $catid, $product, $price, $file_name); //calls function to add new record
+                move_uploaded_file($file_tmp,"images/".$file_name);     //Moves file to images folder
+                echo addProduct($db, $catid, $product, $price, $file_name);     //Calls function to add new record
             }
             break;
         case 'Edit':
@@ -46,16 +46,16 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
             include_once("produpdateform.php");
             break;
         case 'Update':
-            if (!isset($_POST['keepimg']) && checkImage($ext)) {
+            if (!isset($_POST['keepimg']) && checkImage($ext)) {            //Checks whether or not checkbox to keep the image was selected and if new file has a valid extension
                 $image = $file_name;
-                move_uploaded_file($file_tmp,"images/".$file_name);
+                move_uploaded_file($file_tmp,"images/".$file_name);     //Gets new file name and uploads it to the images folder
             } else {
-                $image = filter_input(INPUT_POST, 'imageOG', FILTER_SANITIZE_STRING) ?? NULL;
+                $image = filter_input(INPUT_POST, 'imageOG', FILTER_SANITIZE_STRING) ?? NULL;   //Gets original image filename
             }
             echo updateProduct($db, $prodid, $catid, $product, $price, $image);
             break;
         case 'Delete':
-            echo deleteProduct($db, $prodid);
+            echo deleteProduct($db, $prodid);       //Deletes a given product
             break;
     }
 

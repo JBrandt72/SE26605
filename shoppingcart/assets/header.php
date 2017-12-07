@@ -7,7 +7,7 @@
  */
 
     if(isset($_SESSION['cart'])) {
-        $cartItemCount = count($_SESSION['cart']);
+        $cartItemCount = count($_SESSION['cart']);     //Gets cart item count and displays it when greater than 0
     } else {
         $cartItemCount = "";
     }

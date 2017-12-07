@@ -7,15 +7,16 @@
  */
 ?>
 
-<div>
-    <section  class="col-lg-6 col-md-6">
-        <form method="post" action ="#">
-            Email: <input type="text" name="email" value="" /><br />
-            Password: <input type="text" name="pwd" value="" /><br />
-            Confirm Password: <input type="text" name="conpwd" value="" /><br />
 
-            <input type="submit" name="action" value="Sign Up">
-        </form>
-    </section>
+        <section  class="col-sm-6">
+            <h3>Sign Up</h3>
+            <form method="post" action ="#">
+                Email: <input type="text" name="email" value="" /><br />
+                Password: <input type="text" name="pwd" value="" /><br />
+                Confirm Password: <input type="text" name="conpwd" value="" /><br />
 
+                <input type="submit" name="action" value="Sign Up">
+            </form>
+        </section>
+    </div>
 </div>

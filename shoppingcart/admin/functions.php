@@ -142,7 +142,7 @@ function deleteProduct($db, $product_id){  //Function to delete a record from th
     }
 }
 
-function checkForProducts($db, $id){
+function checkForProducts($db, $id){ //Checks if products still exist in a given category
     try {
         $sql = $db->prepare("SELECT * FROM products WHERE category_id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
@@ -159,7 +159,7 @@ function checkForProducts($db, $id){
     }
 }
 
-function getOneProduct($db, $id){
+function getOneProduct($db, $id){ //Function to find one product based on id
     try {
         $sql = $db->prepare("SELECT * FROM products WHERE product_id = :id");
         $sql->bindParam(':id', $id, PDO::PARAM_INT);
@@ -171,7 +171,7 @@ function getOneProduct($db, $id){
     }
 }
 
-function viewProductsAsTable($db, $category_id){
+function viewProductsAsTable($db, $category_id){ //Function to view products in a table with links to edit product details
     try {
         $sql = $db->prepare("SELECT * FROM products WHERE category_id = :category_id");
         $sql->bindParam(':category_id', $category_id, PDO::PARAM_INT);
@@ -192,7 +192,7 @@ function viewProductsAsTable($db, $category_id){
         }
 }
 
-function viewStoreProducts($db, $category_id){
+function viewStoreProducts($db, $category_id){ //Function to view products in a table with links to add to the cart
     try {
         $sql = $db->prepare("SELECT * FROM products WHERE category_id = :category_id");
         $sql->bindParam(':category_id', $category_id, PDO::PARAM_INT);
@@ -213,7 +213,7 @@ function viewStoreProducts($db, $category_id){
     }
 }
 
-function viewCartAsTable(){
+function viewCartAsTable(){ //Function to view items in the cart as a table
     if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $total = 0;
         $table = "<table class='table'>" . PHP_EOL;
@@ -225,7 +225,7 @@ function viewCartAsTable(){
             $total += $prod['price'];
         }
         $table .= "<tr><td><b>Total:</b> $" .  number_format((float)$total, 2, '.', '') . "</td></tr>";
-        $table .= "</table>";
+        $table .= "</table><form method='get' action='index.php'><input type='submit' name='action' value='Empty'></form>";
         $results = $table;
     } else{
         $results = "Cart is empty.";

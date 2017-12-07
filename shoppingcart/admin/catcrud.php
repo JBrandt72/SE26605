@@ -1,6 +1,6 @@
 <?php
-if(!isset($_SESSION))session_start();
-if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
+if(!isset($_SESSION))session_start();                               //Checks if session is in progress before starting new session
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){         //Checks if valid user session is active and redirects to the login page if not
     header('Location: login.php');
 }
 
@@ -21,20 +21,19 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
     switch ($action) {
         default:
             include_once("catform.php");
-            echo "catid is " . $catid;
             break;
         case 'View':
             echo include_once("catform.php");
-            echo viewProductsAsTable($db,$catid);
+            echo viewProductsAsTable($db,$catid);       //Displays all products of a given category
             break;
         case 'Add':
-            echo addCategory($db, $category);
+            echo addCategory($db, $category);           //Calls function to add new category to db
             include_once("catform.php");
             break;
         case 'Edit':
             $_SESSION['cid'] = $catid;
             $button = "Update";
-            foreach($categories as $cat){
+            foreach($categories as $cat){                   //Displays category selected for editing
                 if($cat['category_id'] == $catid){
                     $selectedcat = $cat['category'];
                 }
@@ -42,10 +41,10 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
             include_once("catform.php");
             break;
         case 'Update':
-            echo updateCategory($db, $_SESSION['cid'], $category);
+            echo updateCategory($db, $_SESSION['cid'], $category);      //Updates a category in the db
             break;
         case 'Delete':
-            if(checkForProducts($db, $catid)){
+            if(checkForProducts($db, $catid)){                      //Calls function to check if a category has products before being deleted
                 echo "This category still has products.";
             } else{
                 echo deleteCategory($db, $catid);
