@@ -193,7 +193,41 @@ function viewProductsAsTable($db, $category_id){
         }
 }
 
+function viewStoreProducts($db, $category_id){
+    try {
+        $sql = $db->prepare("SELECT * FROM products WHERE category_id = :category_id");
+        $sql->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+        $sql->execute();
+        $prods = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Image</th><th>&nbsp</th></tr>";
+        foreach ($prods as $prod) {
+            $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . "$" . $prod['price'] . "</td>";
+            $table .= "<td><img src='admin/images/" . $prod['image'] . "'></td>";
+            $table .= "<td><a href='index.php?action=Add&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Add To Cart</a></td></tr>";
+        }
+        $table .= "</table>";
+        return $table;
+    }
+    catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
 
+function addToCart($db, $id){
+
+
+    try {
+        $sql = $db->prepare("SELECT * FROM products WHERE product_id = :id");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+        $prod = $sql->fetch(PDO::FETCH_ASSOC);
+        return $prod;
+
+    } catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
 
 
 

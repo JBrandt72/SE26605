@@ -6,6 +6,12 @@
  * Time: 10:49 AM
  */
 
+    if(isset($_SESSION['cart'])) {
+        $cartItemCount = count($_SESSION['cart']);
+    } else {
+        $cartItemCount = 0;
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,8 +25,9 @@
 </head>
 <body>
 <header>
-    <h2>STORE</h2>
-    <a href="index.php">Add</a>
-    <a href="search.php">Search</a>
+    <h2>Vintage Gear</h2>
+    <a href="index.php">Admin</a><br>
+    <a href="index.php">Inventory</a>
+    <a href="index.php?action=Cart">Cart<?php echo $cartItemCount; ?></a>
 </header>
 <section>
