@@ -16,7 +16,8 @@
     $categories = getAllCats($db);
     $catid = filter_input(INPUT_POST, 'Categories', FILTER_SANITIZE_STRING) ?? NULL;
     $product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING) ?? NULL;
-    $prodid = filter_input(INPUT_GET, 'prodID', FILTER_VALIDATE_INT); //Gets id from url
+    $prodid = filter_input(INPUT_GET, 'prodID', FILTER_VALIDATE_INT) ??   //Gets id from url
+        filter_input(INPUT_POST, 'pid', FILTER_VALIDATE_INT) ?? NULL;
     $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
     $button = "Add";
 
@@ -29,10 +30,9 @@
     switch ($action) {
         default:
             include_once("prodform.php");
-
-            echo "Default id: " . $catid;
             break;
         case 'View':
+            echo include_once("prodform.php");
             echo viewProductsAsTable($db,$catid);
             break;
         case 'Add':
@@ -41,7 +41,6 @@
                 move_uploaded_file($file_tmp,"images/".$file_name);
                 echo addProduct($db, $catid, $product, $price, $file_name); //calls function to add new record
             }
-            echo "Add id: " . $catid;
             break;
         case 'Edit':
             $button = "Update";
@@ -49,16 +48,16 @@
             include_once("produpdateform.php");
             break;
         case 'Update':
-            if (isset($_POST['keepimg'])) {
-                $image = filter_input(INPUT_POST, 'imageOG', FILTER_SANITIZE_STRING) ?? NULL;
-            } else {
+            if (!isset($_POST['keepimg']) && checkImage($ext)) {
                 $image = $file_name;
+                move_uploaded_file($file_tmp,"images/".$file_name);
+            } else {
+                $image = filter_input(INPUT_POST, 'imageOG', FILTER_SANITIZE_STRING) ?? NULL;
             }
-            echo updateProduct($db, $product_id, $category_id, $product, $price, $image);
-            $button = "Add";
+            echo updateProduct($db, $prodid, $catid, $product, $price, $image);
             break;
         case 'Delete':
-            echo deleteCategory($db, $id);
+            echo deleteProduct($db, $prodid);
             break;
     }
 

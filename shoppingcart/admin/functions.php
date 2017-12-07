@@ -44,7 +44,7 @@ function dropDownForm($cats){   //Function to populate the dropdown form with da
     foreach($cats as $cat) {
         $form .= "<option value='" . $cat['category_id'] . "'";
 
-        if($_GET['Categories'] == $cat['category_id']){
+        if($_GET['Categories'] == $cat['category_id'] || $_POST['Categories'] == $cat['category_id'] ){
             $form .= "selected='selected'";
         }
 
@@ -132,12 +132,12 @@ function updateProduct($db, $product_id, $category_id, $product, $price, $image)
     }
 }
 
-function deleteProduct($db, $id){  //Function to delete a record from the database
+function deleteProduct($db, $product_id){  //Function to delete a record from the database
     try {
-        $sql = $db->prepare("DELETE FROM products WHERE category_id = :id");
-        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql = $db->prepare("DELETE FROM products WHERE product_id = :product_id");
+        $sql->bindParam(':product_id', $product_id, PDO::PARAM_INT);
         $sql->execute();
-        return "Record " . $id ." deleted.";
+        return "Record " . $product_id ." deleted.";
     } catch (PDOException $e){
         die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
     }
@@ -183,7 +183,7 @@ function viewProductsAsTable($db, $category_id){
         foreach ($prods as $prod) {
             $table .= "<tr><td>" . $prod['product_id'] . "</td><td>" . $prod['product'] . "</td><td>" . "$" . $prod['price'] . "</td>";
             $table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-            $table .= "<td><a href='crudprod.php?action=Edit&prodID=".$prod['product_id']."'>Edit</a> | <a href='crudprod.php?action=delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
+            $table .= "<td><a href='crudprod.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='crudprod.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
         }
         $table .= "</table>";
         return $table;

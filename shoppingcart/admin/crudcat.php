@@ -10,7 +10,7 @@ session_start();
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ??          //Saves all user input to variables
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
     $categories = getAllCats($db);
-    $id = filter_input(INPUT_GET, 'Categories', FILTER_SANITIZE_STRING) ?? NULL;
+    $catid = filter_input(INPUT_GET, 'Categories', FILTER_SANITIZE_STRING) ?? NULL;
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_STRING) ?? NULL;
     $button = "Add";
     $selectedcat = "";
@@ -19,15 +19,19 @@ session_start();
         default:
             include_once("catform.php");
             break;
+        case 'View':
+            echo include_once("catform.php");
+            echo viewProductsAsTable($db,$catid);
+            break;
         case 'Add':
             echo addCategory($db, $category);
             include_once("catform.php");
             break;
         case 'Edit':
-            $_SESSION['cid'] = $id;
+            $_SESSION['cid'] = $catid;
             $button = "Update";
             foreach($categories as $cat){
-                if($cat['category_id'] == $id){
+                if($cat['category_id'] == $catid){
                     $selectedcat = $cat['category'];
                 }
             }
@@ -37,10 +41,10 @@ session_start();
             echo updateCategory($db, $_SESSION['cid'], $category);
             break;
         case 'Delete':
-            if(checkForProducts($db, $id)){
+            if(checkForProducts($db, $catid)){
                 echo "This category still has products.";
             } else{
-                echo deleteCategory($db, $id);
+                echo deleteCategory($db, $catid);
             }
             break;
     }

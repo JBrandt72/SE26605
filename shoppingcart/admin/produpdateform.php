@@ -12,6 +12,7 @@
             Price: <input type="text" name="price" value="<?php echo $prod['price']; ?>"/><br />
             Image:<input type="file" name="image" id="image"><br />
             <input type="hidden" name="imageOG" value="<?php echo $prod['image']; ?>">
+            <input type="hidden" name="pid" value="<?php echo $prod['product_id']; ?>">
             <img src="images/<?php echo $prod['image']; ?>"><br />
             <label>Keep current image?</label>
             <input type="checkbox" name="keepimg" id="keepimg"><br />
