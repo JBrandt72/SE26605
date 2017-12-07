@@ -12,7 +12,6 @@ if(!isset($_SESSION))session_start();
     $prodid = filter_input(INPUT_GET, 'prodID', FILTER_VALIDATE_INT) ?? NULL;
 
 
-
     switch ($action) {
         default:
             include_once("assets/header.php");

@@ -1,6 +1,7 @@
 <?php
 
 ?>
+
 <section>
     <h2>Category Management</h2>
     <form method="get" action="catcrud.php">

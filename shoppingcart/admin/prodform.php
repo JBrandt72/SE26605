@@ -5,7 +5,7 @@
 <aside>
     <section>
         <h2>Product Management</h2>
-        <form action="crudprod.php" method="post" enctype="multipart/form-data">
+        <form action="prodcrud.php" method="post" enctype="multipart/form-data">
             Category:<select name="Categories">
                 <?php echo dropDownForm($categories) ?>
             </select>

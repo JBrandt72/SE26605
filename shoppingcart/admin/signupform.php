@@ -7,8 +7,8 @@
  */
 ?>
 
-
-    <section style="float:left">
+<div>
+    <section  class="col-lg-6 col-md-6">
         <form method="post" action ="#">
             Email: <input type="text" name="email" value="" /><br />
             Password: <input type="text" name="pwd" value="" /><br />
@@ -18,3 +18,4 @@
         </form>
     </section>
 
+</div>

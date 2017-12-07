@@ -13,10 +13,10 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
             require_once("dbconn.php");
             require_once("functions.php");
             break;
-        case "Categories":
+        case "CategoryMan":
             include_once("catcrud.php");
             break;
-        case "Products":
+        case "ProductMan":
             include_once("prodcrud.php");
             break;
         case 'LogOut':

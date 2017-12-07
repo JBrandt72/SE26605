@@ -24,9 +24,9 @@
     <!-- js links go here -->
 </head>
 <body>
-<header>
-    <h2>Vintage Gear</h2>
+<header style="text-align:center">
+    <h1>Vintage Gear</h1>
     <a href="index.php">Inventory</a> |
-    <a href="index.php?action=Cart">Cart<sup><?php echo $cartItemCount; ?></sup></a>
+    <a href="index.php?action=Cart">Cart <sup><?php echo $cartItemCount; ?></sup></a>
 </header>
 <section>

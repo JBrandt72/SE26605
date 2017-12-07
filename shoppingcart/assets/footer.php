@@ -11,7 +11,7 @@
 </section>
 </body>
 
-<footer style="clear:both">
+<footer style="clear:both; text-align:center"">
     Copyright &copy; <?php echo Date('Y'); ?> Jonathan Brandt. All rights reserved. <a href="admin/admin.php">Admin Access</a><br>
 </footer>
 

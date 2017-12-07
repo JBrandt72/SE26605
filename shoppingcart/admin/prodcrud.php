@@ -30,7 +30,7 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
             include_once("prodform.php");
             break;
         case 'View':
-            echo include_once("prodform.php");
+            include_once("prodform.php");
             echo viewProductsAsTable($db,$catid);
             break;
         case 'Add':

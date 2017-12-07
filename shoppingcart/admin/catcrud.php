@@ -21,6 +21,7 @@ if($_SESSION['userID'] == NULL || !isset($_SESSION['userID'])){
     switch ($action) {
         default:
             include_once("catform.php");
+            echo "catid is " . $catid;
             break;
         case 'View':
             echo include_once("catform.php");

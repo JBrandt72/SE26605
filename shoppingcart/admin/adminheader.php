@@ -18,12 +18,11 @@
     <!-- js links go here -->
 </head>
 <body>
-<header>
-    <h2>Store</h2>
-    <h3>Admin Control</h3><form action="post"><br />
+<header style="text-align:center">
+    <h3>Admin Control</h3><br />
     <a href="../index.php">Store Front</a> |
-    <a href="admin.php?action=Categories">Manage Categories</a> |
-    <a href="admin.php?action=Products">Manage Products</a> |
+    <a href="admin.php?action=CategoryMan">Manage Categories</a> |
+    <a href="admin.php?action=ProductMan">Manage Products</a> |
     <a href="login.php?action=LogOut">Log Out</a>
 
 </header>
