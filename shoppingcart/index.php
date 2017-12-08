@@ -39,11 +39,11 @@ if(!isset($_SESSION))session_start();
             echo viewCartAsTable();     //Calls function to display cart contents for checkout
             break;
         case 'Remove':
-            include_once("assets/header.php");
             $key = $_GET['key'];    //Gets key for particular product and removes it from cart
             if(isset($_SESSION['cart'])) {
                unset($_SESSION['cart'][$key]);
             }
+            include_once("assets/header.php");
             echo viewCartAsTable();
             break;
         case 'Empty':
