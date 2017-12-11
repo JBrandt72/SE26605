@@ -6,7 +6,7 @@
  * Time: 7:40 AM
  */
 
-function checkRequiredFields($email, $phone, $heard, $contact){  //Function to add a new user to the users table
+function checkRequiredFields($email, $phone, $heard, $contact){  //Function to check required fields
     $check = true;
 
     if(strlen($email) == 0){
@@ -31,7 +31,7 @@ function checkRequiredFields($email, $phone, $heard, $contact){  //Function to a
     return $result;
 }
 
-function checkPhone($phone){
+function checkPhone($phone){        //Function to check phone number
     if (is_numeric($phone) && strlen($phone) == 10){
         $check = true;
     } else {
@@ -41,7 +41,7 @@ function checkPhone($phone){
     return $check;
 }
 
-function addAccount($db, $email, $phone, $heard, $contact, $comments){  //Function to add a new user to the users table
+function addAccount($db, $email, $phone, $heard, $contact, $comments){  //Function to add a new account to the account table
     try{
         $sql = $db->prepare("INSERT INTO account VALUES (null, :email, :phone, :heard, :contact, :comments)"); //sql statement to add placeholders to database
         $sql->bindParam(':email', $email);
@@ -56,7 +56,7 @@ function addAccount($db, $email, $phone, $heard, $contact, $comments){  //Functi
     }
 }
 
-function viewAccountsAsTable($db){
+function viewAccountsAsTable($db){  //Function to view account records as a table
     try {
         $sql = $db->prepare("SELECT * FROM account");
         $sql->execute();
@@ -96,7 +96,7 @@ function dropDownForm($contact){   //Function to populate the dropdown form with
     return $form;
 }
 
-function radioForm($heard) {
+function radioForm($heard) {        //Function to display the last selected radio button option
     $form = "<p>How did you hear about us?</p>";
 
     if ($heard == "Search Engine"){
@@ -119,13 +119,3 @@ function radioForm($heard) {
 
 }
 
-function checkRadio($heard){
-    echo $heard;
-    if($heard == "Search Engine")
-    {
-        echo "this works";
-    } else {
-        echo "why no work??";
-    }
-
-}

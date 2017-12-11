@@ -21,25 +21,25 @@ Jonathan Brandt
 
     switch ($action) {
         default:
-            include_once("assets/webform.php");
+            include_once("assets/webform.php");         //Default case displays webform on pageload
             break;
-        case 'Manage':
+        case 'Manage':                  //Displays webform at any given time to add new records
             include_once("assets/webform.php");
             break;
         case 'Add':
-            $requiredcheck = checkRequiredFields($email, $phone, $heard, $contact);
+            $requiredcheck = checkRequiredFields($email, $phone, $heard, $contact);     //Calls functoin to check if required fields are filled in
             if($requiredcheck == false){
-                include_once("assets/errorform.php");
+                include_once("assets/errorform.php");       //Displays form if not valid with last entered user data
             } else{
-                $phonecheck = checkPhone($phone);
+                $phonecheck = checkPhone($phone);       //Calls function to check if phone number was entered in desired format
                 if($phonecheck == false) {
-                    include_once("assets/errorform.php");
+                    include_once("assets/errorform.php");   //Displays form if not valid with last entered user data
                 } else {
-                    echo addAccount($db, $email, $phone, $heard, $contact, $comments);
+                    echo addAccount($db, $email, $phone, $heard, $contact, $comments);  //Calls function to add new record to account table
                 }
             }
             break;
-        case 'View':
+        case 'View':                //Displays the account data as a table
             echo viewAccountsAsTable($db);
             break;
     }
