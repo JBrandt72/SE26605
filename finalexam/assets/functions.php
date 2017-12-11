@@ -7,23 +7,43 @@
  */
 
 function checkRequiredFields($email, $phone, $heard, $contact){  //Function to add a new user to the users table
+    $check = true;
 
     if(strlen($email) == 0){
         $check = false;
-    } else if(strlen($phone) == 0){
+        echo "*Email is a required field <br>";
+    }
+    if(strlen($phone) == 0){
         $check = false;
-    } else if(strlen($heard) == 0){
+        echo "*Phone is a required field <br>";
+    }
+    if(strlen($heard) == 0){
         $check = false;
+        echo "*Heard is a required field <br>";
+    }
+    if($check == true)
+    {
+        $result = true;
     } else {
-        $check = true;
+        $result = false;
     }
 
+    return $result;
+}
+
+function checkPhone($phone){
+    if (is_numeric($phone) && strlen($phone) == 10){
+        $check = true;
+    } else {
+        $check = false;
+        echo "Please enter 10 digit phone number as numbers only (ex: 15085551234)";
+    }
     return $check;
 }
 
 function addAccount($db, $email, $phone, $heard, $contact, $comments){  //Function to add a new user to the users table
     try{
-        $sql = $db->prepare("INSERT INTO accounts VALUES (null, :email, :phone, :heard, :contact, :comments)"); //sql statement to add placeholders to database
+        $sql = $db->prepare("INSERT INTO account VALUES (null, :email, :phone, :heard, :contact, :comments)"); //sql statement to add placeholders to database
         $sql->bindParam(':email', $email);
         $sql->bindParam(':phone', $phone);
         $sql->bindParam(':heard', $heard);
@@ -38,7 +58,7 @@ function addAccount($db, $email, $phone, $heard, $contact, $comments){  //Functi
 
 function viewAccountsAsTable($db){
     try {
-        $sql = $db->prepare("SELECT * FROM accounts");
+        $sql = $db->prepare("SELECT * FROM account");
         $sql->execute();
         $accounts = $sql->fetchAll(PDO::FETCH_ASSOC);
         $table = "<table class='table'>" . PHP_EOL;
@@ -79,22 +99,33 @@ function dropDownForm($contact){   //Function to populate the dropdown form with
 function radioForm($heard) {
     $form = "<p>How did you hear about us?</p>";
 
-    if ($heard == 'Search Engine'){
-        $form .= "<input type='radio' name='heard_from' value='Search Engine' selected='selected'/>Search engine<br />";
+    if ($heard == "Search Engine"){
+        $form .= "<input type='radio' name='heard_from' value='Search Engine' checked='true'/>Search engine<br />";
     }else {
         $form .= "<input type='radio' name='heard_from' value='Search Engine' />Search engine<br />";
     }
-    if ($heard == 'Friend'){
-        $form .= "<input type='radio' name='heard_from' value='Friend' selected='selected'/>Word of mouth<br />";
+    if ($heard == "Friend"){
+        $form .= "<input type='radio' name='heard_from' value='Friend' checked='true'/>Word of mouth<br />";
     }else {
         $form .= "<input type='radio' name='heard_from' value='Friend'/>Word of mouth<br />";
     }
-    if ($heard == 'Other'){
-        $form .= "<input type='radio' name='heard_from' value='Other' selected='selected'>Other<br />";
+    if ($heard == "Other"){
+        $form .= "<input type='radio' name='heard_from' value='Other' checked='true'>Other<br />";
     }else {
         $form .= "<input type='radio' name='heard_from' value='Other'>Other<br />";
     }
 
     return $form;
+
+}
+
+function checkRadio($heard){
+    echo $heard;
+    if($heard == "Search Engine")
+    {
+        echo "this works";
+    } else {
+        echo "why no work??";
+    }
 
 }
