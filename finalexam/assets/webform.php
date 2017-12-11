@@ -3,7 +3,7 @@
 
  <div>
      <h1>Account Sign Up</h1>
-     <form action="assets/display_results.php" method="post">
+     <form action="index.php" method="post">
 
          <fieldset>
          <legend>Account Information</legend>
@@ -37,7 +37,8 @@
          <textarea name="comments" rows="4" cols="50"></textarea>
          </fieldset>
 
-         <input type="submit" name="action" value="Submit" />
+         <input type="submit" name="action" value="Add" />
+         <input type="submit" name="action" value="View" />
 
      </form>
      <br />

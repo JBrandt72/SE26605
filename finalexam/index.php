@@ -6,7 +6,7 @@ Jonathan Brandt
     require_once("assets/dbconn.php");
     require_once("assets/functions.php");
     include_once("assets/header.php");
-    include_once("assets/webform.php");
+
 
 
     $db = dbConn(); //Connects to db
@@ -20,11 +20,24 @@ Jonathan Brandt
     $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING) ?? NULL;
 
 
-
-    if($action == "Submit"){
-
-        include_once("assets/display_results.php");
+    switch ($action) {
+        default:
+            include_once("assets/webform.php");
+            break;
+        case 'Add':
+            $check = checkRequiredFields($email, $phone, $heard, $contact);
+            if($check == false){
+                echo "not valid";
+                include_once("assets/errorform.php");
+            } else{
+                echo addAccount($db, $email, $phone, $heard, $contact, $comments);
+            }
+            break;
+        case 'View':
+            echo viewAccountsAsTable($db);
+            break;
     }
+
 
 
     include_once("assets/footer.php");

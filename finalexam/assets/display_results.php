@@ -16,7 +16,7 @@
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ??          //Saves all user input to variables
         filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? NULL;
 
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING) ?? NULL;
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? NULL;
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? NULL;
     $heard = filter_input(INPUT_POST, 'heard_from', FILTER_SANITIZE_STRING) ?? NULL;
     $contact = filter_input(INPUT_POST, 'contact_via', FILTER_SANITIZE_STRING) ?? NULL;
@@ -26,6 +26,10 @@
     if($action == "Submit"){
 
         echo $email . $phone . $heard . $contact . $comments;
+        $check = checkRequiredFields($email, $phone, $heard, $contact);
+        if($check == false){
+            echo "not valid";
+        }
     }
 
 
