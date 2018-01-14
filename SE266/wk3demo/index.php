@@ -1,6 +1,6 @@
 <?php
     require_once("assets/dbconn.php");
-    require_once ("assets/dogs.php");
+    require_once("assets/dogs.php");
     include_once("assets/header.php");
     $db = dbConn();
     $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? "";
@@ -28,7 +28,7 @@
             break;
     }
     echo getDogsAsTable($db);
-    include_once ("assets/dogform.php");
-    include_once ("assets/footer.php");
+    include_once("assets/dogform.php");
+    include_once("assets/footer.php");
 ?>
 

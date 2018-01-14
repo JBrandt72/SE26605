@@ -22,7 +22,7 @@
     }
     echo getActorsAsTable($db);
     include_once ("assets/corpsform.php"); //includes the form page
-    include_once ("assets/footer.php"); //includes the footer page
+    include_once("assets/footer.php"); //includes the footer page
 
 
 ?>

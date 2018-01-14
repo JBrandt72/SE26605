@@ -7,10 +7,10 @@
  */
 
 // Database driven app, so...
-require_once ('assets/dbconn.php');
-require_once ('assets/employees.php');
-require_once ('assets/employeeViews.php');
-require_once ('assets/departments.php');
+require_once('assets/dbconn.php');
+require_once('assets/employees.php');
+require_once('assets/employeeViews.php');
+require_once('assets/departments.php');
 $db = getDB();
 $title = "Employees";
 // get the data from user, if any
@@ -23,54 +23,54 @@ $col = filter_input(INPUT_GET, 'col', FILTER_SANITIZE_STRING) ?? NULL;
 // control based on the action indicated by the user
 switch ($action) {
     case 'Read':
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         // pass the db and the id to getEmployeeDisplay (which in turns gets the employee first) and echo results
         break;
     case 'New':
         $title = "New Employee";
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         // initialize button to Save
         // initialize an employee array and set each field to a blank form value
         $depts = getDepts($db);
         echo employeeForm($depts);
         break;
     case 'Save':
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         // pass the data to newEmployee()
         // initialize button to Save
         // initialize an employee array and set each field to a blank form value
         // pass both to employeeForm()
         break;
     case 'Edit':
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         // getEmployee()
         // initialize button to Update
         // pass both to employeeForm()
         break;
     case 'Update':
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         // pass the data to updateEmployee()
         // getEmployee()
         // initialize button to Update
         // pass both to employeeForm()
         break;
     case 'Delete':
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         // deleteEmployee()
         break;
     case 'sort':
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         $sortable = true;
         $employees = getEmployeesAsSortedTable($db, $col, $dir);
         $cols = getColumnNames($db, 'employees');
         echo getEmployeesAsTable($db, $employees, $cols, $sortable);
         break;
     default:
-        include_once ('assets/header.php');
+        include_once('assets/header.php');
         $sortable = true;
         $employees = getEmployees($db);
         $cols = getColumnNames($db, 'employees');
         echo getEmployeesAsTable($db, $employees, $cols, $sortable);
         break;
 }
-include_once ('assets/footer.php');
+include_once('assets/footer.php');
